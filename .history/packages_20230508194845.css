@@ -1,0 +1,20 @@
+body {
+  background-color: black;
+  color: lightgray;
+  flex: auto;
+}
+
+#master {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#navigate {
+  flex: none;
+
+}
+
+.footer {
+  margin
+}
