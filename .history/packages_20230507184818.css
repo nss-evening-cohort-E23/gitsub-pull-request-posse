@@ -1,0 +1,8 @@
+body {
+  background-color: black;
+  color: lightgray;
+}
+
+#master {
+  display: flex;
+}
