@@ -1,0 +1,15 @@
+body {
+  background-color: black;
+  color: lightgray;
+  flex
+}
+
+#master {
+  display: flex;
+  flex-direction: column;
+}
+
+#navigate {
+  flex: none;
+
+}
