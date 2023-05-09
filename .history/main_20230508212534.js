@@ -71,6 +71,6 @@ for (const package of packages) {
 </div>`
 }
 
-renderToDom('#packages', domString);
+renderToDom('#pkgs', domString);
 }
 packagesOnDom(packages);
