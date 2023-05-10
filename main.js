@@ -95,24 +95,49 @@ const packages = [
 ]
 
 // packages 
-const packagesOnDom = (packages) => {
+const packagesOnDom = (array) => {
   let domString = "";
 
 // package cards
-for (const package of packages) {
+for (const package of array) {
   domString += `<div class="card" style="width: 18rem;" id="pkgs">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="card-link">Card link</a>
+    <h5 class="card-title">${package.name}</h5>
+    <p class="card-text">${package.description}.</p>
+   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
+    <a href="#" class="card-link">More Information</a>
+    </div>
   </div>
 </div>`
 }
+renderToDom("packages", domString);
 
-renderToDom('#packages', domString);
 }
 packagesOnDom(packages);
+
+const startApp = () => {
+  packagesOnDom(packages);
+}
+
+const form = document.querySelector('.form');
+
+const createNewPackage = (e) => {
+  e.preventDefault();
+
+  const newPackage = {
+    id: packages.length + 1,
+    name: document.querySelector('#name').value,
+    description: document.querySelector('#description').value,
+  }
+
+  packages.push(newPackage);
+  packagesOnDom(packages);
+  form.reset();
+}
+
+form.addEventListener('submit', createNewPackage);
+
+startApp();
 
 const repos = [
   {
@@ -156,6 +181,3 @@ const profileOnDom = (array) => {
   renderToDom("prof-card", domString)
   console.log(profileOnDom(user));
 }
-
-profileOnDom(user)
-
