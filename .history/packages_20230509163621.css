@@ -1,0 +1,23 @@
+body {
+  background-color: black;
+  color: lightgray;
+  flex: auto;
+}
+
+#master {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#navigate {
+  flex: none;
+  align-self:left ;
+  margin-left: 200px;
+
+}
+
+.footer {
+  margin-top: auto;
+  justify-content: space-between;
+}
