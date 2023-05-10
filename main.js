@@ -1,6 +1,6 @@
-const renderToDom = (divId, htmltoRender) => {
+const renderToDom = (divId, htmlToRender) => {
   let targetedDiv = document.getElementById(divId);
-  targetedDiv.innerHTML = htmltoRender;
+  targetedDiv.innerHTML = htmlToRender;
 };
 
 //function for rendering repo cards to DOM
@@ -127,3 +127,35 @@ const repos = [
     starred: false,
   },
 ];
+
+const user = [
+  {
+    id: 1,
+    name: 'Pull Request Posse',
+    imgURL: 'photos/image.png'
+  },
+]
+
+const profileOnDom = (array) => {
+  let domString = '';
+
+  for (const prof of array) {
+    domString += `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <img src="${prof.imgURL}" class="card-img-top" alt="${prof.name}">
+        <h5 class="card-title">${prof.name}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">${prof.name}</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+        </p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>`
+  }
+
+  renderToDom("prof-card", domString)
+  console.log(profileOnDom(user));
+}
+
+profileOnDom(user)
+
