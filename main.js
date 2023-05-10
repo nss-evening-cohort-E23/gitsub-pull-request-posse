@@ -127,13 +127,3 @@ const repos = [
     starred: false,
   },
 ];
-
-function copyProfile() {
-// getting user element
-const userProfile = document.getElementById('profile-card');
-
-// making a copy of user element
-const test = document.getElementById('profile-2')
-
-test.innerHTML = userProfile.innerHTML
-}
