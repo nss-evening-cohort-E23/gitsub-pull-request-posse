@@ -1,0 +1,66 @@
+body {
+  background-color: black;
+  color: lightgray;
+  flex: auto;
+}
+
+#master {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#navigate {
+  flex: none;
+  
+  
+
+}
+
+.footer {
+  margin-top: auto;
+  justify-content: space-around;
+ 
+}
+
+#ftr-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
+#packages {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 100%;
+  border: 5px solid lightgray;
+  padding: 10px;
+  margin-top: 30px;
+  
+}
+
+.card {
+ height: 195px;
+ margin-top: 10px;
+}
+
+#newPackage {
+  border: 5px solid lightgray;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+#submit {
+  margin-top: 10px;
+}
+
+#delete {
+  margin: auto;
+  width: 75px;
+  height: 50px;
+}
