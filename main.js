@@ -14,9 +14,9 @@ const navBar = () => {
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="#">Overview</a>
-          <a class="nav-link" href="#">Repositories</a>
-          <a class="nav-link" href="#">Projects</a>
-          <a class="nav-link" href="#">Packages</a>
+          <a class="nav-link" href="/repos.html">Repositories</a>
+          <a class="nav-link" href="/projects.html">Projects</a>
+          <a class="nav-link" href="/packages.html">Packages</a>
         </div>
       </div>
     </div>
@@ -84,20 +84,18 @@ const reposOnDom = (reposArr) => {
   let domString =
     "<div><input type='text' id='find-repo' placeholder='Find a repository...'></div>";
 
-  //function to return buttons for each of the repo tags
-  const repoTags = () => {
-    let tagButtons = "";
-    reposArr.forEach((repo) => {
+  repos.forEach((repo) => {
+    //function to return buttons for each of the repo tags
+    const repoTags = () => {
+      let tagButtons = "";
       repo.tags.forEach((tag) => {
         tagButtons += `
-      <button class='card-tags'>${tag}</button>
-    `;
+        <button class='card-tags'>${tag}</button>
+      `;
       });
-    });
-    return tagButtons;
-  };
+      return tagButtons;
+    };
 
-  repos.forEach((repo) => {
     //function for returning starred symbols based on repo.starred
     const starred = () => {
       if (repo.starred) {
@@ -114,6 +112,23 @@ const reposOnDom = (reposArr) => {
       return Math.floor((currentDate - otherDate) / 86400000);
     };
 
+    const repoLanguage = () => {
+      switch (repo.language) {
+        case "javascript":
+          return `🟡${repo.language}`;
+        case "typescript":
+          return `🔵${repo.language}`;
+        case "C#":
+          return `🟢${repo.language}`;
+        case "java":
+          return `☕️${repo.language}`;
+        case "ruby":
+          return `🔻${repo.language}`;
+        case "react":
+          return `☢️${repo.language}`;
+      }
+    };
+
     domString += `
     <div class="card" style="width: 18rem;">
       <div class="card-body repo-card">
@@ -125,7 +140,7 @@ const reposOnDom = (reposArr) => {
           </div>
           <div class='details'>
             <div class='language-${repo.language}'>
-              <p>🟡${repo.language}</p>
+              <p>${repoLanguage()}</p>
             </div>
             <div class="stars">
               <p>&star;${repo.stars}</p>
@@ -284,6 +299,8 @@ const repos = [
 const startApp = () => {
   navBar();
   footer();
+
+  //calls functions specific to repos page, so as not to cause app breaking errors on other pages
   if (document.URL.includes("repos")) {
     reposOnDom(repos);
   }
