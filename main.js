@@ -1,5 +1,5 @@
 const renderToDom = (divId, htmlToRender) => {
-  let targetedDiv = document.getElementById(divId);
+  const targetedDiv = document.getElementById(divId);
   targetedDiv.innerHTML = htmlToRender;
 };
 
@@ -115,9 +115,7 @@ renderToDom("packages", domString);
 }
 packagesOnDom(packages);
 
-const startApp = () => {
-  packagesOnDom(packages);
-}
+
 
 const form = document.querySelector('.form');
 
@@ -137,7 +135,7 @@ const createNewPackage = (e) => {
 
 form.addEventListener('submit', createNewPackage);
 
-startApp();
+
 
 const repos = [
   {
@@ -153,31 +151,28 @@ const repos = [
   },
 ];
 
-const user = [
-  {
-    id: 1,
-    name: 'Pull Request Posse',
-    imgURL: 'photos/image.png'
-  },
-]
 
-const profileOnDom = (array) => {
-  let domString = '';
 
-  for (const prof of array) {
-    domString += `<div class="card" style="width: 18rem;">
+const profile = () => {
+  let domString =  `<div class="card" style="width: 18rem;">
       <div class="card-body">
-        <img src="${prof.imgURL}" class="card-img-top" alt="${prof.name}">
-        <h5 class="card-title">${prof.name}</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">${prof.name}</h6>
+        <img src="photos/image.png" class="card-img-top" alt="Pull Request Posse">
+        <h5 class="card-title">Pull Request Posse</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Pull Request Posse</h6>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
         </p>
         <a href="#" class="card-link">Card link</a>
         <a href="#" class="card-link">Another link</a>
       </div>
     </div>`
+
+    renderToDom("profile", domString)
+    console.log(domString);
   }
 
-  renderToDom("prof-card", domString)
-  console.log(profileOnDom(user));
+const startApp = () => {
+  profile()
+  // packagesOnDom(packages);
 }
+
+  startApp();
