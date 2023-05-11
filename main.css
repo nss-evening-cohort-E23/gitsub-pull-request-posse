@@ -1,5 +1,34 @@
 body {
-  background-color: aquamarine;
+  background-color: black;
+}
+
+.pro-card {
+  background-color: black;
+  color: white;
+  border: 1px solid rgb(81, 81, 81);
+  border-radius: 10px;
+}
+
+.web-address, .location, .followers{
+  font-size: 12px;
+}
+
+.pro-img {
+  border-radius: 75px;
+}
+
+.org {
+  max-width: 25px;
+}
+
+.sponsor-img {
+  max-width: 25px;
+  border-radius: 15px;
+}
+
+p {
+  font-size: 12px;
+  margin-bottom: 5px;
 }
 
 #repo-form-div {
