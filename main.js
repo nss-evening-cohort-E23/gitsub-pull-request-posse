@@ -3,104 +3,220 @@ const renderToDom = (divId, htmltoRender) => {
   targetedDiv.innerHTML = htmltoRender;
 };
 
+const navBar = () => {
+  let domString = `
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Github</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link active" aria-current="page" href="#">Overview</a>
+          <a class="nav-link" href="/repos.html">Repositories</a>
+          <a class="nav-link" href="/projects.html">Projects</a>
+          <a class="nav-link" href="/packages.html">Packages</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  `;
+  renderToDom("navigate", domString);
+};
+
+const footer = () => {
+  let domString = `
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="footer">
+        <p>@ 2023 GitHub, Inc.</p>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Terms</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Privacy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Security</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+        </ul>
+        
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact GitHub</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">API</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Training</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+        </ul>
+    </div>
+  </nav>
+  `;
+  renderToDom("footer", domString);
+};
+
 //function for rendering repo cards to DOM
 const reposOnDom = (reposArr) => {
   let domString =
     "<div><input type='text' id='find-repo' placeholder='Find a repository...'></div>";
 
-  //function to return buttons for each of the repo tags
-  const repoTags = () => {
-    let tagButtons = "";
-    reposArr.forEach((repo) => {
+  repos.forEach((repo) => {
+    //function to return buttons for each of the repo tags
+    const repoTags = () => {
+      let tagButtons = "";
       repo.tags.forEach((tag) => {
         tagButtons += `
-      <button class='card-tags'>${tag}</button>
-    `;
+        <button class='card-tags'>${tag}</button>
+      `;
       });
-    });
-    return tagButtons;
-  };
+      return tagButtons;
+    };
 
-  repos.forEach((repo) => {
     //function for returning starred symbols based on repo.starred
     const starred = () => {
       if (repo.starred) {
-        return "U+02605";
+        return "&starf;";
       } else {
-        return "U+02606";
+        return "&star;";
+      }
+    };
+
+    //function that calculates days since updated
+    const daysSinceUpdate = () => {
+      let currentDate = Date.now();
+      let otherDate = new Date(repo.updatedDate);
+      return Math.floor((currentDate - otherDate) / 86400000);
+    };
+
+    const repoLanguage = () => {
+      switch (repo.language) {
+        case "javascript":
+          return `🟡${repo.language}`;
+        case "typescript":
+          return `🔵${repo.language}`;
+        case "C#":
+          return `🟢${repo.language}`;
+        case "java":
+          return `☕️${repo.language}`;
+        case "ruby":
+          return `🔻${repo.language}`;
+        case "react":
+          return `☢️${repo.language}`;
       }
     };
 
     domString += `
     <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">${repo.name}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <div class='buttons'>
-          ${repoTags()}
-        </div>
-        <div class='details'>
-          <div class='language-${repo.language}'>
-             <p>🟡${repo.language}</p>
+      <div class="card-body repo-card">
+        <div class="main-repo-info">
+          <h5 class="card-title">${repo.name}</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <div class='buttons'>
+            ${repoTags()}
           </div>
+          <div class='details'>
+            <div class='language-${repo.language}'>
+              <p>${repoLanguage()}</p>
+            </div>
+            <div class="stars">
+              <p>&star;${repo.stars}</p>
+            </div>
+            <div class="branches">
+              <p>${repo.branches}</p>
+            </div>
+            <div class="issues">
+              <p>${repo.issues} issues need help</p>
+            </div>
+            <div>
+              <p>Updated ${daysSinceUpdate()} days ago</p>
+            </div>
+          </div>
+        </div>
+        <div class="side-repo-info">
+          <button class="starred" id="starred-button">${starred()} Star</button>
         </div>
       </div>
     </div>`;
   });
+  renderToDom("repo-div", domString);
 };
-
 
 // packages array
 const packages = [
   {
     id: 1,
-    name: 'Docker',
-    description: 'A software platform used for building applications based on containers - small and lightweight execution environments.',
-
+    name: "Docker",
+    description:
+      "A software platform used for building applications based on containers - small and lightweight execution environments.",
   },
 
   {
     id: 2,
-    name: 'Ruby Gems',
-    description: 'A standard format for distributing Ruby programs and libraries used for the  Ruby programming language.',
-    
+    name: "Ruby Gems",
+    description:
+      "A standard format for distributing Ruby programs and libraries used for the  Ruby programming language.",
   },
-  
+
   {
     id: 3,
-    name: 'npm',
-    description: 'A package manager for JavaScript included with Node.js. npm makes it easy for developers to share and reuse code.',
-
+    name: "npm",
+    description:
+      "A package manager for JavaScript included with Node.js. npm makes it easy for developers to share and reuse code.",
   },
 
   {
     id: 4,
-    name: 'Apache Maven',
-    description: 'A default package manager for the Java programming language and the java runtime environment.',
-
+    name: "Apache Maven",
+    description:
+      "A default package manager for the Java programming language and the java runtime environment.",
   },
 
   {
     id: 5,
-    name: 'Nugent',
-    description: 'A free and open source package manager used for the Microsoft development platforms including .NET.',
-
+    name: "Nugent",
+    description:
+      "A free and open source package manager used for the Microsoft development platforms including .NET.",
   },
 
   {
     id: 6,
-    name: 'Containers',
-    description: 'A singe place for your team to manage Docker images and decide who can see and access your images.',
+    name: "Containers",
+    description:
+      "A singe place for your team to manage Docker images and decide who can see and access your images.",
   },
-]
+];
 
-// packages 
+// packages
 const packagesOnDom = (array) => {
   let domString = "";
 
-// package cards
-for (const package of array) {
-  domString += `<div class="card" style="width: 18rem;" id="pkgs">
+  // package cards
+  for (const package of array) {
+    domString += `<div class="card" style="width: 18rem;" id="pkgs">
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
@@ -108,36 +224,30 @@ for (const package of array) {
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
-</div>`
-}
-renderToDom("packages", domString);
-
-}
-packagesOnDom(packages);
-
-const startApp = () => {
-  packagesOnDom(packages);
-}
-
-const form = document.querySelector('.form');
-
-const createNewPackage = (e) => {
-  e.preventDefault();
-
-  const newPackage = {
-    id: packages.length + 1,
-    name: document.querySelector('#name').value,
-    description: document.querySelector('#description').value,
+</div>`;
   }
+  renderToDom("packages", domString);
+};
 
-  packages.push(newPackage);
-  packagesOnDom(packages);
-  form.reset();
-}
+const packageFormEventLister = () => {
+  const form = document.querySelector(".form");
 
-form.addEventListener('submit', createNewPackage);
+  const createNewPackage = (e) => {
+    e.preventDefault();
 
-startApp();
+    const newPackage = {
+      id: packages.length + 1,
+      name: document.querySelector("#name").value,
+      description: document.querySelector("#description").value,
+    };
+
+    packages.push(newPackage);
+    packagesOnDom(packages);
+    form.reset();
+  };
+
+  form.addEventListener("submit", createNewPackage);
+};
 
 const repos = [
   {
@@ -148,7 +258,55 @@ const repos = [
     stars: 500,
     branches: 70,
     issues: 0,
-    updatedDate: "2023-05-08",
+    updatedDate: "05/08/2023",
+    starred: false,
+  },
+  {
+    name: "serious-coding-project",
+    description: "a very super serious coding project",
+    tags: ["react", "javascript", "superCode", "vim"],
+    language: "JavaScript",
+    stars: 500,
+    branches: 70,
+    issues: 0,
+    updatedDate: "05/08/2023",
+    starred: false,
+  },
+  {
+    name: "serious-coding-project",
+    description: "a very super serious coding project",
+    tags: ["react", "javascript", "superCode", "vim"],
+    language: "JavaScript",
+    stars: 500,
+    branches: 70,
+    issues: 0,
+    updatedDate: "05/08/2023",
+    starred: false,
+  },
+  {
+    name: "serious-coding-project",
+    description: "a very super serious coding project",
+    tags: ["react", "javascript", "superCode", "vim"],
+    language: "JavaScript",
+    stars: 500,
+    branches: 70,
+    issues: 0,
+    updatedDate: "05/08/2023",
     starred: false,
   },
 ];
+
+const startApp = () => {
+  navBar();
+  footer();
+
+  //calls functions specific to repos page, so as not to cause app breaking errors on other pages
+  if (document.URL.includes("repos")) {
+    reposOnDom(repos);
+  }
+  if (document.URL.includes("packages")) {
+    packagesOnDom(packages);
+    packageFormEventLister();
+  }
+};
+startApp();
