@@ -165,6 +165,47 @@ const reposOnDom = (reposArr) => {
   renderToDom("repo-div", domString);
 };
 
+//renders repo adding form to DOM
+const repoAddForm = () => {
+  let domString = `
+  <div class="form-title"><h2>Create a new repository</h2></div>
+  <form>
+    <div class="form-group">
+      <label for="repo-name">Repository Name <span id='required-star'>*</span></label>
+
+      <input type="text" class="form-control" id="repo-name-input">
+    </div>
+    <div class="form-subtext">
+      <small id="repo-name-help" class="form-text">Great repository names are short and memorable. Need inspiration? How about<span id='silly-repo-name'>supreme-giggle?</span>
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="description">Description <span id="optional">(optional)</span></label>
+      <textarea class="form-control" id="repo-description" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+      <select id="language-select" class="custom-select custom-select-lg mb-3">
+        <option selected>Choose Primary Language</option>
+        <option value="javascript">JavaScript</option>
+        <option value="typescript">TypeScript</option>
+        <option value="C#">C#</option>
+        <option value="java">Java</option>
+        <option value="ruby">Ruby</option>
+        <option value="react">react</option>
+      </select>
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-success">Create repository</button>
+    </div>
+  </form>
+  `;
+  renderToDom("repo-form-div", domString);
+};
+
+const repoFormEventListener = (e) => {
+  let repoForm = document.getElementById("repo-form");
+};
+
 // packages array
 const packages = [
   {
@@ -354,6 +395,7 @@ const startApp = () => {
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
   if (document.URL.includes("repos")) {
     reposOnDom(repos);
+    repoAddForm();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);

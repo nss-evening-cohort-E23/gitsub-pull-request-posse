@@ -30,3 +30,27 @@ p {
   font-size: 12px;
   margin-bottom: 5px;
 }
+
+#repo-form-div {
+  background-color: black;
+  color: #c8d1d8;
+  margin: 1rem;
+  border: solid gray 0.2rem;
+  border-radius: 2.5%;
+}
+
+#repo-form-div * {
+  margin: 0.5rem;
+}
+
+.form-title {
+  padding-top: 0.05rem;
+}
+
+#repo-name-help {
+  color: #c8d1d8;
+}
+
+#silly-repo-name {
+  color: #53cb61;
+}
