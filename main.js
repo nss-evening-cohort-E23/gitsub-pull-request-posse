@@ -1,7 +1,8 @@
-const renderToDom = (divId, htmlToRender) => {
-  const targetedDiv = document.getElementById(divId);
-  targetedDiv.innerHTML = htmlToRender;
+const renderToDom = (divId, htmltoRender) => {
+  let targetedDiv = document.getElementById(divId);
+  targetedDiv.innerHTML = htmltoRender;
 };
+
 
 //function for rendering repo cards to DOM
 const reposOnDom = (reposArr) => {
@@ -113,7 +114,7 @@ for (const package of array) {
 renderToDom("packages", domString);
 
 }
-packagesOnDom(packages);
+// packagesOnDom(packages);
 
 
 
@@ -133,7 +134,7 @@ const createNewPackage = (e) => {
   form.reset();
 }
 
-form.addEventListener('submit', createNewPackage);
+// form.addEventListener('submit', createNewPackage);
 
 
 
@@ -157,22 +158,53 @@ const profile = () => {
   let domString =  `<div class="card" style="width: 18rem;">
       <div class="card-body">
         <img src="photos/image.png" class="card-img-top" alt="Pull Request Posse">
-        <h5 class="card-title">Pull Request Posse</h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Pull Request Posse</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+        <h3 class="card-title">Pull Request Posse</h3>
+        <h5 class="card-subtitle mb-2 text-body-secondary">PRP</h5>
+        <p class="card-text">Coding our hearts out for a better, brighter, techier future!
         </p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <div>
+        <button type="button" class="btn btn-primary follow-btn">Follow</button>
+        <button type="button" class="btn btn-primary sponsor-btn">Sponsor</button>
+        <button type="button" class="btn btn-primary more-btn">...</button>
+        </div>
+        <div class="followers">
+        2.8m followers - 48 following -  10
+        </div>
+        <div class="location">Nashville,TN</div>
+        <div class="web-address">https://github.com/nss-evening-cohort-E23/gitsub-pull-request-posse</div>
+        <div class="highlights">
+          <h5>Highlights</h5>
+          <p>Best Group in Class</p>
+          <p>GitSub Masters</p>
+          <p>Pro... Of Course</p>
+        </div>
+        <div>
+          <h5>Organizations</h5>
+        </div>
+        <div>
+          <h5>Sponsors</h5>
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04RQ6SRKJB-5f76c7c0a76b-512" class="sponsor-img">
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04S1QC70HK-260085a625d5-512" class="sponsor-img">
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04S76RTBFE-73c92cc7fc1a-512" class="sponsor-img">
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04SUD9EMK2-a0d7f6b8aa0c-512" class="sponsor-img">
+        </div>
       </div>
-    </div>`
+    </div>`;
 
-    renderToDom("profile", domString)
-    console.log(domString);
-  }
+    renderToDom("profile", domString);
+    
+};
 
 const startApp = () => {
-  profile()
+  profile();
+  if (document.URL.includes("repos")) {
+    reposOnDom(repos);
+  }
+  if (document.URL.includes("packages")) {
+    packagesOnDom(packages);
+    packageFormEventLister();
+  }
   // packagesOnDom(packages);
 }
 
-  startApp();
+startApp();
