@@ -26,25 +26,46 @@ const repos = [
   },
 ];
 const projects = [
-  { name: 'Project 1'},
-  { name: 'Project 2'},
-  { name: 'Project 3'},
-  { name: 'Project 4'},
+  { name: "Project 1",
+    description: "Fix code in box"},
+  { name: 'Project 2',
+    description: "Come up with names"},
+  { name: 'Project 3',
+    description: "List items in array"},
+  { name: 'Project 4',
+    description: "Thank the Moms"}
 ];
 
-const projectsOnDom = (projectArr) => {
+function projectsOnDom(projectArr) {
   let domString = "";
   for (const proj of projectArr) {
     domString += `<div class="card" style="width:18rem;">
       <div class="card-body">
       <p class="card-text">${proj.name}</p>
+      <p class="card-text">${proj.description}</p>
       </div>
     </div>`;
   };
 
   renderToDom("Project-List", domString);
-};
+}
 projectsOnDom(projects);
+
+const formButton = document.querySelector("createNewProjectButton");
+
+const renderForm = () => {
+  const form = `
+  <form>
+    <div class="createNewProject">
+      <label for="exampleInputName1" class="form-label"> Project Board Name</label>
+      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Example 2">
+      <div id="nameHelp" class="form-text"></div>
+    </div>
+    <button type="submit" class="createNewProjectButton">Create Project</button>
+  </form>
+  `
+  renderToDOM('createNewProject', form);
+}
 
 // whateverElement.addEventListener("event type", () => {
 //   const searchInput = document.querySelector('.input')
