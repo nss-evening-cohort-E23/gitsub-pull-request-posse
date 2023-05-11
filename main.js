@@ -202,8 +202,24 @@ const repoAddForm = () => {
   renderToDom("repo-form-div", domString);
 };
 
-const repoFormEventListener = (e) => {
+const repoFormEventListener = () => {
+  const createNewRepo = (e) => {
+    e.preventDefault();
+    let newRepo = {
+      name: document.getElementById("repo-name-input").value,
+      description: document.getElementById("repo-description"),
+      tags: [],
+      language: document.getElementById("language-select").value,
+      stars: 0,
+      branches: 0,
+      issues: 0,
+      updatedDate: `${Date.now}`,
+      starred: false,
+    };
+  };
+
   let repoForm = document.getElementById("repo-form");
+  repoForm.addEventListener("submit", createNewRepo());
 };
 
 // packages array
