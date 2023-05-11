@@ -155,32 +155,38 @@ const repos = [
 
 
 const profile = () => {
-  let domString =  `<div class="card" style="width: 18rem;">
+  let domString =  `<div class="card pro-card" style="width: 18rem;">
       <div class="card-body">
-        <img src="photos/image.png" class="card-img-top" alt="Pull Request Posse">
+        <img src="photos/image.png" class="card-img-top pro-img" alt="Pull Request Posse">
         <h3 class="card-title">Pull Request Posse</h3>
         <h5 class="card-subtitle mb-2 text-body-secondary">PRP</h5>
         <p class="card-text">Coding our hearts out for a better, brighter, techier future!
         </p>
         <div>
-        <button type="button" class="btn btn-primary follow-btn">Follow</button>
-        <button type="button" class="btn btn-primary sponsor-btn">Sponsor</button>
-        <button type="button" class="btn btn-primary more-btn">...</button>
+        <button type="button" class="btn btn-dark follow-btn">Follow</button>
+        <button type="button" class="btn btn-dark sponsor-btn">Sponsor</button>
+        <button type="button" class="btn btn-dark more-btn">...</button>
         </div>
         <div class="followers">
         2.8m followers - 48 following -  10
         </div>
+        <hr>
         <div class="location">Nashville,TN</div>
         <div class="web-address">https://github.com/nss-evening-cohort-E23/gitsub-pull-request-posse</div>
+        <hr>
         <div class="highlights">
           <h5>Highlights</h5>
           <p>Best Group in Class</p>
           <p>GitSub Masters</p>
           <p>Pro... Of Course</p>
         </div>
-        <div>
+        <hr>
+        <div class="organ">
           <h5>Organizations</h5>
+          <img src="https://avatars.githubusercontent.com/u/109764697?s=200&v=4" class="org">
+          <img src="https://avatars.githubusercontent.com/u/129906791?s=200&v=4" class="org">
         </div>
+        <hr>
         <div>
           <h5>Sponsors</h5>
           <img src="https://ca.slack-edge.com/T03F2SDTJ-U04RQ6SRKJB-5f76c7c0a76b-512" class="sponsor-img">
