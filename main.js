@@ -241,6 +241,10 @@ const repoFormEventListener = () => {
   repoForm.addEventListener("submit", createNewRepo);
 };
 
+const searchRepos = () => {
+  
+}
+
 // packages array
 const packages = [
   {
