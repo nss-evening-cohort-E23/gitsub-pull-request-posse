@@ -341,9 +341,10 @@ const packageFormEventLister = () => {
 
 const repos = [
   {
-    name: "serious-coding-project",
-    description: "a very super serious coding project",
-    tags: ["react", "javascript", "superCode", "vim"],
+    id: 1,
+    name: "Sorting-Hat",
+    description: "An app to find which Hogworts House you are in.",
+    tags: ["HTML", "javascript", "CSS"],
     language: "javascript",
     stars: 500,
     branches: 70,
@@ -353,42 +354,72 @@ const repos = [
     pinned: true,
   },
   {
-    name: "serious-coding-project",
-    description: "a very super serious coding project",
-    tags: ["react", "javascript", "superCode", "vim"],
+    id: 2,
+    name: "Calculator",
+    description: "A functioning calculator.",
+    tags: ["HTML", "javascript", "CSS"],
     language: "javascript",
-    stars: 500,
-    branches: 70,
+    stars: 1000,
+    branches: 150,
+    issues: 0,
+    updatedDate: "04/08/2023",
+    starred: true,
+    pinned: false,
+  },
+  {
+    id: 3,
+    name: "Pet-Adoption",
+    description: "An app for adopting pets.",
+    tags: ["HTML", "javascript", "CSS"],
+    language: "HTML",
+    stars: 28752,
+    branches: 15,
+    issues: 0,
+    updatedDate: "05/08/2023",
+    starred: true,
+    pinned: true,
+  },
+  {
+    id: 4,
+    name: "Youtube-Player",
+    description: "A project to setup a mock YouTube",
+    tags: ["HTML", "javascript", "CSS"],
+    language: "javascript",
+    stars: 25,
+    branches: 5,
+    issues: 0,
+    updatedDate: "05/08/2023",
+    starred: false,
+    pinned: false,
+  },
+  {
+    id: 5,
+    name: "Link-In-Bio",
+    description: "A mock up of your personal links.",
+    tags: ["HTML", "CSS"],
+    language: "HTML",
+    stars: 78,
+    branches: 6,
     issues: 0,
     updatedDate: "05/08/2023",
     starred: false,
     pinned: true,
   },
   {
-    name: "serious-coding-project",
-    description: "a very super serious coding project",
-    tags: ["react", "javascript", "superCode", "vim"],
-    language: "javascript",
-    stars: 500,
-    branches: 70,
-    issues: 0,
+    id: 6,
+    name: "Word-Counter",
+    description: "A basic Java Script word counter",
+    tags: ["HTML", "Javascript", "CSS"],
+    language: "Javascript",
+    stars: 2,
+    branches: 14,
+    issues: 2,
     updatedDate: "05/08/2023",
     starred: false,
     pinned: true,
   },
   {
-    name: "serious-coding-project",
-    description: "a very super serious coding project",
-    tags: ["react", "javascript", "superCode", "vim"],
-    language: "javascript",
-    stars: 500,
-    branches: 70,
-    issues: 0,
-    updatedDate: "05/08/2023",
-    starred: false,
-    pinned: true,
-  },
-  {
+    id: 9,
     name: "pikachu-gif-generator",
     description: "AI pikachu gif generator",
     tags: ["TypeScript", "javascript", "pokeCode", "vim"],
@@ -400,18 +431,46 @@ const repos = [
     starred: false,
     pinned: true,
   },
+  {
+    id: 7,
+    name: "HTML-Resume",
+    description: "A resume project to help learn HTML",
+    tags: ["HTML",  "CSS"],
+    language: "HTML",
+    stars: 2,
+    branches: 2,
+    issues: 0,
+    updatedDate: "05/08/2023",
+    starred: false,
+    pinned: false,
+  },
+  {
+    id: 8,
+    name: "Product-Cards",
+    description: "Project to learn css flex.",
+    tags: ["HTML",  "CSS"],
+    language: "CSS",
+    stars: 2,
+    branches: 2,
+    issues: 0,
+    updatedDate: "05/08/2023",
+    starred: false,
+    pinned: false,
+  },
 ];
 
 const pinnedOnDom = (array) => {
   let domString = "";
 
   for (const pinned of array) {
+    if (pinned.pinned === true) {
     domString += `<div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">${pinned.name}</h5>
     <p class="card-text">${pinned.description}</p>
   </div>
-</div>`;
+</div>`
+    }
   }
   renderToDom("pinned-repo", domString);
 };
