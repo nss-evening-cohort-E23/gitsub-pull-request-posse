@@ -13,7 +13,7 @@ const navBar = () => {
         </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Overview</a>
+          <a class="nav-link active" aria-current="page" href="index.html">Overview</a>
           <a class="nav-link" href="/repos.html">Repositories</a>
           <a class="nav-link" href="/projects.html">Projects</a>
           <a class="nav-link" href="/packages.html">Packages</a>
@@ -81,10 +81,8 @@ const footer = () => {
 
 //function for rendering repo cards to DOM
 const reposOnDom = (reposArr) => {
-  let domString =
-    "<div><input type='text' id='find-repo' value='' placeholder='Find a repository...'></div>";
-
-  repos.forEach((repo) => {
+  let domString = "";
+  reposArr.forEach((repo) => {
     //function to return buttons for each of the repo tags
     const repoTags = () => {
       let tagButtons = "";
@@ -134,7 +132,6 @@ const reposOnDom = (reposArr) => {
           break;
       }
     };
-
     domString += `
     <div class="card" style="width: 18rem;">
       <div class="card-body repo-card">
@@ -162,8 +159,10 @@ const reposOnDom = (reposArr) => {
             </div>
           </div>
         </div>
-        <div class="side-repo-info">
-          <button class="starred" id="starred-button">${starred()} Star</button>
+        <div id="side-repo-info">
+          <button class="starred" id="starred-button--${
+            repo.id
+          }">${starred()} Star</button>
         </div>
       </div>
     </div>`;
@@ -243,17 +242,43 @@ const repoFormEventListener = () => {
 
 const searchRepos = () => {
   const search = document.getElementById("find-repo");
-  const onSearch = (e) => {
+  const searcher = (e) => {
     console.log(e);
-    const searched = repos.filter(
-      (repo) =>
-        repo.name.includes(e.target.value) ||
-        repo.description.includes(e.target.value)
-    );
-    console.log(searched);
+    console.log(e.target.value);
+    const searched = [];
+    repos.forEach((repo) => {
+      let repoNameLowerCase = repo.name.toLowerCase();
+      let repoDescLowerCase = repo.description.toLowerCase();
+      if (
+        repoNameLowerCase.includes(e.target.value.toLowerCase()) ||
+        repoDescLowerCase.includes(e.target.value.toLowerCase())
+      ) {
+        searched.push(repo);
+      }
+    });
     reposOnDom(searched);
   };
-  search.addEventListener("change", onSearch);
+  search.addEventListener("input", searcher);
+};
+
+const addRemoveStar = () => {
+  const starDiv = document.getElementById("repo-div");
+  const starClick = (e) => {
+    console.log("listener is working");
+    if (e.target.id.includes("starred-button")) {
+      let button = document.getElementById(e.target.id);
+      const [, id] = e.target.id.split("--");
+      let index = repos.findIndex((element) => element.id === Number(id));
+      if (repos[index].starred === false) {
+        repos[index].starred = true;
+        button.innerHTML = "&starf; Star";
+      } else if (repos[index].starred === true) {
+        repos[index].starred = false;
+        button.innerHTML = "&star; Star";
+      }
+    }
+  };
+  starDiv.addEventListener("click", starClick);
 };
 
 // packages array
@@ -435,7 +460,7 @@ const repos = [
     id: 7,
     name: "HTML-Resume",
     description: "A resume project to help learn HTML",
-    tags: ["HTML",  "CSS"],
+    tags: ["HTML", "CSS"],
     language: "HTML",
     stars: 2,
     branches: 2,
@@ -448,7 +473,7 @@ const repos = [
     id: 8,
     name: "Product-Cards",
     description: "Project to learn css flex.",
-    tags: ["HTML",  "CSS"],
+    tags: ["HTML", "CSS"],
     language: "CSS",
     stars: 2,
     branches: 2,
@@ -464,12 +489,12 @@ const pinnedOnDom = (array) => {
 
   for (const pinned of array) {
     if (pinned.pinned === true) {
-    domString += `<div class="card" style="width: 18rem;">
+      domString += `<div class="card" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">${pinned.name}</h5>
     <p class="card-text">${pinned.description}</p>
   </div>
-</div>`
+</div>`;
     }
   }
   renderToDom("pinned-repo", domString);
@@ -531,10 +556,15 @@ const startApp = () => {
     pinnedOnDom(repos);
   }
   if (document.URL.includes("repos")) {
+    renderToDom(
+      "search-div",
+      "<div><input type='text' id='find-repo' value='' placeholder='Find a repository...'></div>"
+    );
     reposOnDom(repos);
     repoAddForm();
     repoFormEventListener();
     searchRepos();
+    addRemoveStar();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
