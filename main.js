@@ -368,11 +368,77 @@ const repos = [
   },
 ];
 
+const pinnedOnDom = (array) => {
+  let domString = "";
+
+  for (const pinned of array) {
+    domString += `<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${pinned.name}</h5>
+    <p class="card-text">${pinned.description}</p>
+  </div>
+</div>`
+  }
+  renderToDom("pinned-repo", domString)
+}
+
+const profile = () => {
+  let domString =  `<div class="card pro-card" style="width: 18rem;">
+      <div class="card-body">
+        <img src="photos/image.png" class="card-img-top pro-img" alt="Pull Request Posse">
+        <h3 class="card-title">Pull Request Posse</h3>
+        <h5 class="card-subtitle mb-2 text-body-secondary">PRP</h5>
+        <p class="card-text">Coding our hearts out for a better, brighter, techier future!
+        </p>
+        <div>
+        <button type="button" class="btn btn-dark follow-btn">Follow</button>
+        <button type="button" class="btn btn-dark sponsor-btn">Sponsor</button>
+        <button type="button" class="btn btn-dark more-btn">...</button>
+        </div>
+        <div class="followers">
+        2.8m followers - 48 following -  10
+        </div>
+        <hr>
+        <div class="location">Nashville,TN</div>
+        <div class="web-address">https://github.com/nss-evening-cohort-E23/gitsub-pull-request-posse</div>
+        <hr>
+        <div class="highlights">
+          <h5>Highlights</h5>
+          <p>Best Group in Class</p>
+          <p>GitSub Masters</p>
+          <p>Pro... Of Course</p>
+        </div>
+        <hr>
+        <div class="organ">
+          <h5>Organizations</h5>
+          <img src="https://avatars.githubusercontent.com/u/109764697?s=200&v=4" class="org">
+          <img src="https://avatars.githubusercontent.com/u/129906791?s=200&v=4" class="org">
+        </div>
+        <hr>
+        <div>
+          <h5>Sponsors</h5>
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04RQ6SRKJB-5f76c7c0a76b-512" class="sponsor-img">
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04S1QC70HK-260085a625d5-512" class="sponsor-img">
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04S76RTBFE-73c92cc7fc1a-512" class="sponsor-img">
+          <img src="https://ca.slack-edge.com/T03F2SDTJ-U04SUD9EMK2-a0d7f6b8aa0c-512" class="sponsor-img">
+        </div>
+      </div>
+    </div>`;
+
+    renderToDom("profile", domString);
+    
+};
+
+
 const startApp = () => {
   navBar();
   footer();
-
+  profile()
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
+  if (document.title.includes("Overview")) {
+    repoAddForm()
+    pinnedOnDom(repos)
+  }
   if (document.URL.includes("repos")) {
     reposOnDom(repos);
     repoAddForm();
