@@ -169,7 +169,7 @@ const reposOnDom = (reposArr) => {
 const repoAddForm = () => {
   let domString = `
   <div class="form-title"><h2>Create a new repository</h2></div>
-  <form>
+  <form id="repo-form">
     <div class="form-group">
       <label for="repo-name">Repository Name <span id='required-star'>*</span></label>
 
@@ -203,23 +203,35 @@ const repoAddForm = () => {
 };
 
 const repoFormEventListener = () => {
+  const getDate = () => {
+    let date = Date.now();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
+
   const createNewRepo = (e) => {
     e.preventDefault();
-    let newRepo = {
+    const newRepo = {
       name: document.getElementById("repo-name-input").value,
-      description: document.getElementById("repo-description"),
+      description: document.getElementById("repo-description").value,
       tags: [],
       language: document.getElementById("language-select").value,
       stars: 0,
       branches: 0,
       issues: 0,
-      updatedDate: `${Date.now}`,
+      updatedDate: `${getDate()}`,
       starred: false,
+      pinned: false,
     };
+    repos.push(newRepo);
+    console.log(repos);
+    reposOnDom(repos);
   };
 
   let repoForm = document.getElementById("repo-form");
-  repoForm.addEventListener("submit", createNewRepo());
+  repoForm.addEventListener("submit", createNewRepo);
 };
 
 // packages array
@@ -316,6 +328,7 @@ const repos = [
     issues: 0,
     updatedDate: "05/08/2023",
     starred: false,
+    pinned: true,
   },
   {
     name: "serious-coding-project",
