@@ -26,6 +26,22 @@ body {
   border-radius: 15px;
 }
 
+.details {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.pinned-repo {
+  background-color: black;
+  color: white;
+  border: 1px solid rgb(81, 81, 81);
+  border-radius: 10px;
+}
+
+h4 {
+  color: white;
+}
+
 p {
   font-size: 12px;
   margin-bottom: 5px;
