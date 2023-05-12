@@ -115,17 +115,23 @@ const reposOnDom = (reposArr) => {
     const repoLanguage = () => {
       switch (repo.language) {
         case "javascript":
-          return `🟡${repo.language}`;
+          return `🟡 JavaScript`;
+          break;
         case "typescript":
-          return `🔵${repo.language}`;
+          return `🔵 TypeScript`;
+          break;
         case "C#":
-          return `🟢${repo.language}`;
+          return `🟢 C#`;
+          break;
         case "java":
-          return `☕️${repo.language}`;
+          return `☕️ Java`;
+          break;
         case "ruby":
-          return `🔻${repo.language}`;
+          return `🔻 Ruby`;
+          break;
         case "react":
-          return `☢️${repo.language}`;
+          return `☢️ React`;
+          break;
       }
     };
 
@@ -191,7 +197,7 @@ const repoAddForm = () => {
         <option value="C#">C#</option>
         <option value="java">Java</option>
         <option value="ruby">Ruby</option>
-        <option value="react">react</option>
+        <option value="react">React</option>
       </select>
     </div>
     <div class="form-group">
@@ -203,8 +209,9 @@ const repoAddForm = () => {
 };
 
 const repoFormEventListener = () => {
+  let repoForm = document.getElementById("repo-form");
   const getDate = () => {
-    let date = Date.now();
+    let date = new Date(Date.now());
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
@@ -228,9 +235,9 @@ const repoFormEventListener = () => {
     repos.push(newRepo);
     console.log(repos);
     reposOnDom(repos);
+    repoForm.reset();
   };
 
-  let repoForm = document.getElementById("repo-form");
   repoForm.addEventListener("submit", createNewRepo);
 };
 
@@ -322,7 +329,7 @@ const repos = [
     name: "serious-coding-project",
     description: "a very super serious coding project",
     tags: ["react", "javascript", "superCode", "vim"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 500,
     branches: 70,
     issues: 0,
@@ -334,7 +341,7 @@ const repos = [
     name: "serious-coding-project",
     description: "a very super serious coding project",
     tags: ["react", "javascript", "superCode", "vim"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 500,
     branches: 70,
     issues: 0,
@@ -346,7 +353,7 @@ const repos = [
     name: "serious-coding-project",
     description: "a very super serious coding project",
     tags: ["react", "javascript", "superCode", "vim"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 500,
     branches: 70,
     issues: 0,
@@ -358,7 +365,7 @@ const repos = [
     name: "serious-coding-project",
     description: "a very super serious coding project",
     tags: ["react", "javascript", "superCode", "vim"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 500,
     branches: 70,
     issues: 0,
@@ -376,6 +383,7 @@ const startApp = () => {
   if (document.URL.includes("repos")) {
     reposOnDom(repos);
     repoAddForm();
+    repoFormEventListener();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
