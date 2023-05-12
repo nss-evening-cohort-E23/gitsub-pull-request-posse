@@ -393,6 +393,9 @@ const startApp = () => {
   profile();
 
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
+  if (document.title.includes("Overview")) {
+    repoAddForm()
+  }
   if (document.URL.includes("repos")) {
     reposOnDom(repos);
     repoAddForm();
