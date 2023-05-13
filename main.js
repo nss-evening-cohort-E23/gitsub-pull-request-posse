@@ -344,12 +344,6 @@ const packagesOnDom = (array) => {
   renderToDom("packages", domString);
 };
 
-
-packagesOnDom(packages);
-
-
-// code to create a new package
-const form = document.querySelector('.form');
 const packageFormEventLister = () => {
   const form = document.querySelector(".form");
 
@@ -366,31 +360,9 @@ const packageFormEventLister = () => {
     packagesOnDom(packages);
     form.reset();
   };
-form.addEventListener('submit', createNewPackage);
+
+  form.addEventListener("submit", createNewPackage);
 };
-
-// code to delete a package
-const deletePackage = (e) => {  
-  if (e.target.id === 'delete') {
-    const [, id] = e.target.id.split('--');
-
-    const index = packages.findIndex((package) => package.id === Number(id));
-
-    packages.splice(index, 1);
-  }
-    packagesOnDom(packages);
-}; 
-
-const deletePackageEventLister = () => {
-  const packages = document.querySelector('#packages');
-  packages.addEventListener('click', deletePackage);
-  
-};
-
-
-
- 
-
 
 const repos = [
   {
@@ -472,6 +444,19 @@ const repos = [
     pinned: true,
   },
   {
+    id: 9,
+    name: "pikachu-gif-generator",
+    description: "AI pikachu gif generator",
+    tags: ["TypeScript", "javascript", "pokeCode", "vim"],
+    language: "javascript",
+    stars: 10000,
+    branches: 3,
+    issues: 0,
+    updatedDate: "09/28/1998",
+    starred: false,
+    pinned: true,
+  },
+  {
     id: 7,
     name: "HTML-Resume",
     description: "A resume project to help learn HTML",
@@ -497,22 +482,28 @@ const repos = [
     starred: false,
     pinned: false,
   },
-  {
-    id: 9,
-    name: "pikachu-gif-generator",
-    description: "AI pikachu gif generator",
-    tags: ["TypeScript", "javascript", "pokeCode", "vim"],
-    language: "javascript",
-    stars: 10000,
-    branches: 3,
-    issues: 0,
-    updatedDate: "09/28/1998",
-    starred: false,
-    pinned: true,
-  },
 ];
 
-// project section below
+const pinnedOnDom = (array) => {
+  let domString = "";
+
+  for (const pinned of array) {
+    if (pinned.pinned === true) {
+      domString += `<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title repo-name">${pinned.name}</h5>
+    <p class="card-text repo-description">${pinned.description}</p>
+    <div class="details">
+      <p>${pinned.language}</p>
+      <p>${pinned.branches}</p>
+    </div>
+  </div>
+</div>`;
+    }
+  }
+  renderToDom("pinned-repo", domString);
+};
+// projects below
 const projects = [
   { name: "Project 1",
     description: "Fix code in box"},
@@ -565,84 +556,34 @@ projects.push(newProjectObj);
 projectsOnDOM(projects);
 form.reset();
 }
-// form.addEventListener('Create Project', createProject);
+
 
 // project section above 
-
-const pinnedOnDom = (array) => {
-  let domString = "";
-
-  const colorDot = () => {
-  if (language === javascript) {
-    return "&#128993;"
-  } else if (language === HTML) {
-    return "&#128308;"
-  } else if (language === CSS) {
-    return "&#128995;"
-  } else {
-    return ""
-  }
-  colorDot()
-}
-
-  for (const pinned of array) {
-    if (pinned.pinned === true) {
-      domString += `<div class="card pinned-repo" style="width: 18rem;">
-  <div class="card-body pinned-card-body">
-    <h5 class="card-title repo-name">${pinned.name}</h5>
-    <p class="card-text repo-description">${pinned.description}</p>
-    <div class="details">
-      <p>${pinned.language}</p>
-      <p>${pinned.branches}</p>
-    </div>
-  </div>
-</div>`;
-    }
-  }
-  renderToDom("pinned-repo", domString);
-};
-
 const profile = () => {
   let domString = `<div class="card pro-card" style="width: 18rem;">
       <div class="card-body">
         <img src="photos/image.png" class="card-img-top pro-img" alt="Pull Request Posse">
-        <h3 class="card-title pro-title">Pull Request Posse</h3>
+        <h3 class="card-title">Pull Request Posse</h3>
         <h5 class="card-subtitle mb-2 text-body-secondary">PRP</h5>
-        <p class="card-text pro-text">Coding our hearts out for a better, brighter, techier future!
+        <p class="card-text">Coding our hearts out for a better, brighter, techier future!
         </p>
         <div>
         <button type="button" class="btn btn-dark follow-btn">Follow</button>
-        <button type="button" class="btn btn-dark sponsor-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg> Sponsor</button>
+        <button type="button" class="btn btn-dark sponsor-btn">Sponsor</button>
         <button type="button" class="btn btn-dark more-btn">...</button>
         </div>
         <div class="followers">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-  <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
-</svg> 2.8m followers - 48 following - &starf; 10
+        2.8m followers - 48 following -  10
         </div>
         <hr>
-        <div class="location"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
-  <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
-</svg> Nashville,TN</div>
-        <div class="web-address"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
-  <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
-  <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
-</svg> https://github.com/nss-evening-cohort-E23/gitsub-pull-request-posse</div>
+        <div class="location">Nashville,TN</div>
+        <div class="web-address">https://github.com/nss-evening-cohort-E23/gitsub-pull-request-posse</div>
         <hr>
         <div class="highlights">
           <h5>Highlights</h5>
-          <p><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-  <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
-</svg> Best Group in Class</p>
-          <p><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-  <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
-</svg> GitSub Masters</p>
-          <p><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-  <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
-</svg> Pro... Of Course</p>
+          <p>Best Group in Class</p>
+          <p>GitSub Masters</p>
+          <p>Pro... Of Course</p>
         </div>
         <hr>
         <div class="organ">
@@ -651,7 +592,7 @@ const profile = () => {
           <img src="https://avatars.githubusercontent.com/u/129906791?s=200&v=4" class="org">
         </div>
         <hr>
-        <div class="sponsors">
+        <div>
           <h5>Sponsors</h5>
           <img src="https://ca.slack-edge.com/T03F2SDTJ-U04RQ6SRKJB-5f76c7c0a76b-512" class="sponsor-img">
           <img src="https://ca.slack-edge.com/T03F2SDTJ-U04S1QC70HK-260085a625d5-512" class="sponsor-img">
