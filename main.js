@@ -484,6 +484,46 @@ const repos = [
   },
 ];
 // project section below
+projectsOnDom(projects);
+const renderProjectForm = () => {
+  const form = `
+  <form>
+    <div class="createNewProject">
+      <label for="exampleInputName1" class="form-label"> Project Board Name</label>
+      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Name">
+      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Example 2">
+      <div id="nameHelp" class="form-text"></div>
+    </div>
+    <button type="submit" class="createNewProjectButton">Create Project</button>
+  </form>
+  `
+ renderToDom("createNewProject", form);
+}
+renderProjectForm();
+const formButton = document.querySelector("#createNewProjectButton");
+// formButton.addEventListener('click', renderForm);
+const formSubmission = document.querySelector("#createNewProject");
+const createProject = (e) => {
+  e.preventDefault();
+const form = document.querySelector('form');
+const newProjectObj = {
+  name: document.querySelector("#name").value,
+  description: document.querySelector("#description").value
+};
+projects.push(newProjectObj);
+projectsOnDOM(projects);
+form.reset();
+}
+// form.addEventListener('Create Project', createProject);
+const app = document.querySelector("#app");
+app.addEventListener('click', (e) => {
+  if (e.target.id.includes("create project")) {
+    console.log(index);
+    projectsOnDOM(projects);
+  }
+});
+// project section above 
+
 const pinnedOnDom = (array) => {
   let domString = "";
 
