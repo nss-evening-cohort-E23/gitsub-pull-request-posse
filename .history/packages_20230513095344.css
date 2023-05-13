@@ -1,77 +1,8 @@
 body {
   background-color: black;
+  color: lightgray;
+  flex: auto;
 }
-
-.pro-card {
-  background-color: black;
-  color: white;
-  border: 1px solid rgb(81, 81, 81);
-  border-radius: 10px;
-}
-
-.web-address, .location, .followers{
-  font-size: 12px;
-}
-
-.pro-img {
-  border-radius: 75px;
-}
-
-.org {
-  max-width: 25px;
-}
-
-.sponsor-img {
-  max-width: 25px;
-  border-radius: 15px;
-}
-
-.details {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.pinned-repo {
-  background-color: black;
-  color: white;
-  border: 1px solid rgb(81, 81, 81);
-  border-radius: 10px;
-}
-
-h4 {
-  color: white;
-}
-
-p {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-
-#repo-form-div {
-  background-color: black;
-  color: #c8d1d8;
-  margin: 1rem;
-  border: solid gray 0.2rem;
-  border-radius: 2.5%;
-}
-
-#repo-form-div * {
-  margin: 0.5rem;
-}
-
-.form-title {
-  padding-top: 0.05rem;
-}
-
-#repo-name-help {
-  color: #c8d1d8;
-}
-
-#silly-repo-name {
-  color: #53cb61;
-}
-
-/* packages */
 
 #master {
   display: flex;
@@ -139,4 +70,3 @@ p {
   justify-content: space-around;
   color: whitesmoke;
 }
-
