@@ -339,12 +339,12 @@ const packagesOnDom = (array) => {
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
-</div>`;
-  }
-  renderToDom("packages", domString);
-};
+<<<<<<< HEAD
+</div>`
+}
+renderToDom("packages", domString);
 
-
+}
 packagesOnDom(packages);
 
 const startApp = () => {
@@ -352,25 +352,28 @@ const startApp = () => {
 }
 // code to create a new package
 const form = document.querySelector('.form');
+
+const createNewPackage = (e) => {
+  e.preventDefault();
+
+  const newPackage = {
+    id: packages.length + 1,
+    name: document.querySelector('#name').value,
+    description: document.querySelector('#description').value,
+=======
+</div>`;
+>>>>>>> develop
+  }
+  renderToDom("packages", domString);
+};
+
 const packageFormEventLister = () => {
   const form = document.querySelector(".form");
 
   const createNewPackage = (e) => {
     e.preventDefault();
 
-    const newPackage = {
-      id: packages.length + 1,
-      name: document.querySelector("#name").value,
-      description: document.querySelector("#description").value,
-    };
-
-    packages.push(newPackage);
-    packagesOnDom(packages);
-    form.reset();
-  };
-
-form.addEventListener('submit', createNewPackage);
-
+<<<<<<< HEAD
 // code to delete a package
 
 document.querySelector('#pkgs').addEventListener('click', (e) => {
@@ -385,8 +388,21 @@ document.querySelector('#pkgs').addEventListener('click', (e) => {
   }
 });
 
+=======
+    const newPackage = {
+      id: packages.length + 1,
+      name: document.querySelector("#name").value,
+      description: document.querySelector("#description").value,
+    };
+
+    packages.push(newPackage);
+    packagesOnDom(packages);
+    form.reset();
+  };
+
   form.addEventListener("submit", createNewPackage);
 };
+>>>>>>> develop
 
 const repos = [
   {

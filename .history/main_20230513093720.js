@@ -344,7 +344,7 @@ const packagesOnDom = (array) => {
   renderToDom("packages", domString);
 };
 
-
+}
 packagesOnDom(packages);
 
 const startApp = () => {

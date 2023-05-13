@@ -344,7 +344,7 @@ const packagesOnDom = (array) => {
   renderToDom("packages", domString);
 };
 
-
+}
 packagesOnDom(packages);
 
 const startApp = () => {
@@ -352,8 +352,6 @@ const startApp = () => {
 }
 // code to create a new package
 const form = document.querySelector('.form');
-const packageFormEventLister = () => {
-  const form = document.querySelector(".form");
 
   const createNewPackage = (e) => {
     e.preventDefault();
@@ -385,8 +383,6 @@ document.querySelector('#pkgs').addEventListener('click', (e) => {
   }
 });
 
-  form.addEventListener("submit", createNewPackage);
-};
 
 const repos = [
   {
