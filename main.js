@@ -349,9 +349,8 @@ const packagesOnDom = (array) => {
   renderToDom("packages", domString);
 };
 
-
 // code to create a new package
-const form = document.querySelector('.form');
+const form = document.querySelector(".form");
 const packageFormEventLister = () => {
   const form = document.querySelector(".form");
 
@@ -368,32 +367,26 @@ const packageFormEventLister = () => {
     packagesOnDom(packages);
     form.reset();
   };
-form.addEventListener('submit', createNewPackage);
+  form.addEventListener("submit", createNewPackage);
 };
 
 // code to delete a package
-const deletePackage = (e) => {  
-  console.log(e.target.id)
-  if (e.target.id.includes ('delete')) {
-    const [, id] = e.target.id.split('--');
+const deletePackage = (e) => {
+  console.log(e.target.id);
+  if (e.target.id.includes("delete")) {
+    const [, id] = e.target.id.split("--");
 
     const index = packages.findIndex((package) => package.id === Number(id));
 
     packages.splice(index, 1);
   }
-    packagesOnDom(packages);
-}; 
-
-const deletePackageEventLister = () => {
-  const pkgs = document.querySelector('#packages');
-  pkgs.addEventListener('click', deletePackage);
-  
+  packagesOnDom(packages);
 };
 
-
-
- 
-
+const deletePackageEventLister = () => {
+  const pkgs = document.querySelector("#packages");
+  pkgs.addEventListener("click", deletePackage);
+};
 
 const repos = [
   {
@@ -530,14 +523,10 @@ const repos = [
 
 // project section below
 const projects = [
-  { name: "Project 1",
-    description: "Fix code in box"},
-  { name: 'Project 2',
-    description: "Come up with names"},
-  { name: 'Project 3',
-    description: "List items in array"},
-  { name: 'Project 4',
-    description: "Thank the Moms"}
+  { name: "Project 1", description: "Fix code in box" },
+  { name: "Project 2", description: "Come up with names" },
+  { name: "Project 3", description: "List items in array" },
+  { name: "Project 4", description: "Thank the Moms" },
 ];
 function projectsOnDom(projectArr) {
   let domString = "";
@@ -548,10 +537,10 @@ function projectsOnDom(projectArr) {
       <p class="card-text">${proj.description}</p>
       </div>
     </div>`;
-  };
+  }
   renderToDom("projectList", domString);
 }
-projectsOnDom(projects);
+
 const renderProjectForm = () => {
   const form = `
   <form>
@@ -563,43 +552,43 @@ const renderProjectForm = () => {
     </div>
     <button type="submit" class="createNewProjectButton">Create Project</button>
   </form>
-  `
- renderToDom("createNewProject", form);
-}
-renderProjectForm();
+  `;
+  renderToDom("createNewProject", form);
+};
+
 const formButton = document.querySelector("#createNewProjectButton");
 // formButton.addEventListener('click', renderForm);
 const formSubmission = document.querySelector("#createNewProject");
 const createProject = (e) => {
   e.preventDefault();
-const form = document.querySelector('form');
-const newProjectObj = {
-  name: document.querySelector("#name").value,
-  description: document.querySelector("#description").value
+  const form = document.querySelector("form");
+  const newProjectObj = {
+    name: document.querySelector("#name").value,
+    description: document.querySelector("#description").value,
+  };
+  projects.push(newProjectObj);
+  projectsOnDom(projects);
+  form.reset();
 };
-projects.push(newProjectObj);
-projectsOnDOM(projects);
-form.reset();
-}
 // form.addEventListener('Create Project', createProject);
 
-// project section above 
+// project section above
 
 const pinnedOnDom = (array) => {
   let domString = "";
 
   const colorDot = () => {
-  if (language === javascript) {
-    return "&#128993;"
-  } else if (language === HTML) {
-    return "&#128308;"
-  } else if (language === CSS) {
-    return "&#128995;"
-  } else {
-    return ""
-  }
-  colorDot()
-}
+    if (language === javascript) {
+      return "&#128993;";
+    } else if (language === HTML) {
+      return "&#128308;";
+    } else if (language === CSS) {
+      return "&#128995;";
+    } else {
+      return "";
+    }
+    colorDot();
+  };
 
   for (const pinned of array) {
     if (pinned.pinned === true) {
@@ -708,6 +697,10 @@ const startApp = () => {
     packagesOnDom(packages);
     packageFormEventLister();
     deletePackageEventLister();
+  }
+  if (document.URL.includes("packages")) {
+    projectsOnDom(projects);
+    renderProjectForm();
   }
 };
 startApp();
