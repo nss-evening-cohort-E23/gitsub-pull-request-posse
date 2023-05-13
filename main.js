@@ -458,7 +458,7 @@ const repos = [
     pinned: false,
   },
 ];
-
+// project section below
 const projects = [
   { name: "Project 1",
     description: "Fix code in box"},
