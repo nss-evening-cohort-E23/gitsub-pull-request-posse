@@ -489,11 +489,7 @@ const pinnedOnDom = (array) => {
 
   for (const pinned of array) {
     if (pinned.pinned === true) {
-<<<<<<< HEAD
-    domString += `<div class="card pinned-repo pro-card" style="width: 18rem;">
-=======
       domString += `<div class="card" style="width: 18rem;">
->>>>>>> develop
   <div class="card-body">
     <h5 class="card-title repo-name">${pinned.name}</h5>
     <p class="card-text repo-description">${pinned.description}</p>
