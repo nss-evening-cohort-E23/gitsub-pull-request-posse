@@ -1,13 +1,50 @@
 
 body {
   background-color: black;
+  margin: 5px;
 }
+
+.overview, .pinned {
+  display: flex;
+  }
+
+  .pinned {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+
+  .pin-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .pinned-card {
+    border: 2px solid rgb(81, 81, 81);
+    border-radius: 10px;
+    margin: 10px;
+  }
 
 .pro-card {
   background-color: black;
   color: white;
   border: 1px solid rgb(81, 81, 81);
   border-radius: 10px;
+  height: 100%;
+}
+
+.followers, .location, .web-address, .highlights, .sponsors, .organ, .pro-text {
+  margin: 10px;
+}
+
+.pro-title {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.follow-btn {
+  margin-left: 10px;
 }
 
 .web-address, .location, .followers{
@@ -37,6 +74,7 @@ body {
   color: white;
   border: 1px solid rgb(81, 81, 81);
   border-radius: 10px;
+  margin: 10px;
 }
 
 h4 {
