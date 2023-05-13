@@ -335,7 +335,7 @@ const packagesOnDom = (array) => {
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
-   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
+   <div class="footer"><button class="btn btn-danger" id="delete--${package.id}">Delete</button>
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
@@ -343,9 +343,6 @@ const packagesOnDom = (array) => {
   }
   renderToDom("packages", domString);
 };
-
-
-packagesOnDom(packages);
 
 
 // code to create a new package
@@ -371,7 +368,8 @@ form.addEventListener('submit', createNewPackage);
 
 // code to delete a package
 const deletePackage = (e) => {  
-  if (e.target.id === 'delete') {
+  console.log(e.target.id)
+  if (e.target.id.includes ('delete')) {
     const [, id] = e.target.id.split('--');
 
     const index = packages.findIndex((package) => package.id === Number(id));
@@ -382,8 +380,8 @@ const deletePackage = (e) => {
 }; 
 
 const deletePackageEventLister = () => {
-  const packages = document.querySelector('#packages');
-  packages.addEventListener('click', deletePackage);
+  const pkgs = document.querySelector('#packages');
+  pkgs.addEventListener('click', deletePackage);
   
 };
 
@@ -632,6 +630,7 @@ const startApp = () => {
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
     packageFormEventLister();
+    deletePackageEventLister();
   }
 };
 startApp();
