@@ -13,7 +13,7 @@ const navBar = () => {
         </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Overview</a>
+          <a class="nav-link active" aria-current="page" href="index.html">Overview</a>
           <a class="nav-link" href="/repos.html">Repositories</a>
           <a class="nav-link" href="/projects.html">Projects</a>
           <a class="nav-link" href="/packages.html">Packages</a>
@@ -81,10 +81,8 @@ const footer = () => {
 
 //function for rendering repo cards to DOM
 const reposOnDom = (reposArr) => {
-  let domString =
-    "<div><input type='text' id='find-repo' placeholder='Find a repository...'></div>";
-
-  repos.forEach((repo) => {
+  let domString = "";
+  reposArr.forEach((repo) => {
     //function to return buttons for each of the repo tags
     const repoTags = () => {
       let tagButtons = "";
@@ -115,26 +113,31 @@ const reposOnDom = (reposArr) => {
     const repoLanguage = () => {
       switch (repo.language) {
         case "javascript":
-          return `🟡${repo.language}`;
+          return `🟡 JavaScript`;
+          break;
         case "typescript":
-          return `🔵${repo.language}`;
+          return `🔵 TypeScript`;
+          break;
         case "C#":
-          return `🟢${repo.language}`;
+          return `🟢 C#`;
+          break;
         case "java":
-          return `☕️${repo.language}`;
+          return `☕️ Java`;
+          break;
         case "ruby":
-          return `🔻${repo.language}`;
+          return `🔻 Ruby`;
+          break;
         case "react":
-          return `☢️${repo.language}`;
+          return `☢️ React`;
+          break;
       }
     };
-
     domString += `
     <div class="card" style="width: 18rem;">
       <div class="card-body repo-card">
         <div class="main-repo-info">
           <h5 class="card-title">${repo.name}</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="card-text">${repo.description}</p>
           <div class='buttons'>
             ${repoTags()}
           </div>
@@ -156,8 +159,10 @@ const reposOnDom = (reposArr) => {
             </div>
           </div>
         </div>
-        <div class="side-repo-info">
-          <button class="starred" id="starred-button">${starred()} Star</button>
+        <div id="side-repo-info">
+          <button class="starred" id="starred-button--${
+            repo.id
+          }">${starred()} Star</button>
         </div>
       </div>
     </div>`;
@@ -191,7 +196,7 @@ const repoAddForm = () => {
         <option value="C#">C#</option>
         <option value="java">Java</option>
         <option value="ruby">Ruby</option>
-        <option value="react">react</option>
+        <option value="react">React</option>
       </select>
     </div>
     <div class="form-group">
@@ -203,8 +208,9 @@ const repoAddForm = () => {
 };
 
 const repoFormEventListener = () => {
+  let repoForm = document.getElementById("repo-form");
   const getDate = () => {
-    let date = Date.now();
+    let date = new Date(Date.now());
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
@@ -228,10 +234,51 @@ const repoFormEventListener = () => {
     repos.push(newRepo);
     console.log(repos);
     reposOnDom(repos);
+    repoForm.reset();
   };
 
-  let repoForm = document.getElementById("repo-form");
   repoForm.addEventListener("submit", createNewRepo);
+};
+
+const searchRepos = () => {
+  const search = document.getElementById("find-repo");
+  const searcher = (e) => {
+    console.log(e);
+    console.log(e.target.value);
+    const searched = [];
+    repos.forEach((repo) => {
+      let repoNameLowerCase = repo.name.toLowerCase();
+      let repoDescLowerCase = repo.description.toLowerCase();
+      if (
+        repoNameLowerCase.includes(e.target.value.toLowerCase()) ||
+        repoDescLowerCase.includes(e.target.value.toLowerCase())
+      ) {
+        searched.push(repo);
+      }
+    });
+    reposOnDom(searched);
+  };
+  search.addEventListener("input", searcher);
+};
+
+const addRemoveStar = () => {
+  const starDiv = document.getElementById("repo-div");
+  const starClick = (e) => {
+    console.log("listener is working");
+    if (e.target.id.includes("starred-button")) {
+      let button = document.getElementById(e.target.id);
+      const [, id] = e.target.id.split("--");
+      let index = repos.findIndex((element) => element.id === Number(id));
+      if (repos[index].starred === false) {
+        repos[index].starred = true;
+        button.innerHTML = "&starf; Star";
+      } else if (repos[index].starred === true) {
+        repos[index].starred = false;
+        button.innerHTML = "&star; Star";
+      }
+    }
+  };
+  starDiv.addEventListener("click", starClick);
 };
 
 // packages array
@@ -323,7 +370,7 @@ const repos = [
     name: "Sorting-Hat",
     description: "An app to find which Hogworts House you are in.",
     tags: ["HTML", "javascript", "CSS"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 500,
     branches: 70,
     issues: 0,
@@ -336,7 +383,7 @@ const repos = [
     name: "Calculator",
     description: "A functioning calculator.",
     tags: ["HTML", "javascript", "CSS"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 1000,
     branches: 150,
     issues: 0,
@@ -362,7 +409,7 @@ const repos = [
     name: "Youtube-Player",
     description: "A project to setup a mock YouTube",
     tags: ["HTML", "javascript", "CSS"],
-    language: "JavaScript",
+    language: "javascript",
     stars: 25,
     branches: 5,
     issues: 0,
@@ -397,10 +444,23 @@ const repos = [
     pinned: true,
   },
   {
+    id: 9,
+    name: "pikachu-gif-generator",
+    description: "AI pikachu gif generator",
+    tags: ["TypeScript", "javascript", "pokeCode", "vim"],
+    language: "javascript",
+    stars: 10000,
+    branches: 3,
+    issues: 0,
+    updatedDate: "09/28/1998",
+    starred: false,
+    pinned: true,
+  },
+  {
     id: 7,
     name: "HTML-Resume",
     description: "A resume project to help learn HTML",
-    tags: ["HTML",  "CSS"],
+    tags: ["HTML", "CSS"],
     language: "HTML",
     stars: 2,
     branches: 2,
@@ -413,7 +473,7 @@ const repos = [
     id: 8,
     name: "Product-Cards",
     description: "Project to learn css flex.",
-    tags: ["HTML",  "CSS"],
+    tags: ["HTML", "CSS"],
     language: "CSS",
     stars: 2,
     branches: 2,
@@ -429,7 +489,11 @@ const pinnedOnDom = (array) => {
 
   for (const pinned of array) {
     if (pinned.pinned === true) {
+<<<<<<< HEAD
     domString += `<div class="card pinned-repo pro-card" style="width: 18rem;">
+=======
+      domString += `<div class="card" style="width: 18rem;">
+>>>>>>> develop
   <div class="card-body">
     <h5 class="card-title repo-name">${pinned.name}</h5>
     <p class="card-text repo-description">${pinned.description}</p>
@@ -438,14 +502,14 @@ const pinnedOnDom = (array) => {
       <p>${pinned.branches}</p>
     </div>
   </div>
-</div>`
+</div>`;
     }
   }
-  renderToDom("pinned-repo", domString)
-}
+  renderToDom("pinned-repo", domString);
+};
 
 const profile = () => {
-  let domString =  `<div class="card pro-card" style="width: 18rem;">
+  let domString = `<div class="card pro-card" style="width: 18rem;">
       <div class="card-body">
         <img src="photos/image.png" class="card-img-top pro-img" alt="Pull Request Posse">
         <h3 class="card-title">Pull Request Posse</h3>
@@ -487,23 +551,28 @@ const profile = () => {
       </div>
     </div>`;
 
-    renderToDom("profile", domString);
-    
+  renderToDom("profile", domString);
 };
-
 
 const startApp = () => {
   navBar();
   footer();
-  profile()
+  profile();
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
   if (document.title.includes("Overview")) {
-    repoAddForm()
-    pinnedOnDom(repos)
+    repoAddForm();
+    pinnedOnDom(repos);
   }
   if (document.URL.includes("repos")) {
+    renderToDom(
+      "search-div",
+      "<div><input type='text' id='find-repo' value='' placeholder='Find a repository...'></div>"
+    );
     reposOnDom(repos);
     repoAddForm();
+    repoFormEventListener();
+    searchRepos();
+    addRemoveStar();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
