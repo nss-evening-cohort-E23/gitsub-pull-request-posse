@@ -601,6 +601,9 @@ const pinnedOnDom = (array) => {
         case "react":
           return `☢️ React`;
           break;
+        case "CSS":
+          return `🌈 CSS`;
+          break;
       }
     };
 
