@@ -347,9 +347,7 @@ const packagesOnDom = (array) => {
 
 packagesOnDom(packages);
 
-const startApp = () => {
-  packagesOnDom(packages);
-}
+
 // code to create a new package
 const form = document.querySelector('.form');
 const packageFormEventLister = () => {
@@ -368,25 +366,31 @@ const packageFormEventLister = () => {
     packagesOnDom(packages);
     form.reset();
   };
-
 form.addEventListener('submit', createNewPackage);
+};
 
 // code to delete a package
+const deletePackage = (e) => {  
+  if (e.target.id === 'delete') {
+    const [, id] = e.target.id.split('--');
 
-document.querySelector('#packages').addEventListener('click', (e) => {
-  if (e.target.id.includes("delete")) {
-    const [, id] = e.target.id.split("--");
+    const index = packages.findIndex((package) => package.id === Number(id));
 
-    const index = packages.findIndex(e => e.id === number(id));
-
-    projects.splice(index, 1);
-    packagesOnDom(packages);
-    
+    packages.splice(index, 1);
   }
-});
+    packagesOnDom(packages);
+}; 
 
-  form.addEventListener("submit", createNewPackage);
+const deletePackageEventLister = () => {
+  const packages = document.querySelector('#packages');
+  packages.addEventListener('click', deletePackage);
+  
 };
+
+
+
+ 
+
 
 const repos = [
   {
