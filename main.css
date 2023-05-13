@@ -1,30 +1,29 @@
-
 body {
   background-color: black;
   margin: 5px;
 }
 
-.overview, .pinned {
+.overview,
+.pinned {
   display: flex;
-  }
+}
 
-  .pinned {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
+.pinned {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
 
+.pin-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
-  .pin-title {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .pinned-card {
-    border: 2px solid rgb(81, 81, 81);
-    border-radius: 10px;
-    margin: 10px;
-  }
+.pinned-card {
+  border: 2px solid rgb(81, 81, 81);
+  border-radius: 10px;
+  margin: 10px;
+}
 
 .pro-card {
   background-color: black;
@@ -34,7 +33,13 @@ body {
   height: 100%;
 }
 
-.followers, .location, .web-address, .highlights, .sponsors, .organ, .pro-text {
+.followers,
+.location,
+.web-address,
+.highlights,
+.sponsors,
+.organ,
+.pro-text {
   margin: 10px;
 }
 
@@ -96,8 +101,18 @@ p {
   border-radius: 2.5%;
 }
 
-#repo-form-div * {
+#repo-form-div {
   margin: 0.5rem;
+}
+
+#repo-name-input,
+#repo-description,
+#language-select {
+  background-color: black;
+}
+
+#language-select {
+  color: #c8d1d8;
 }
 
 .form-title {
@@ -180,14 +195,6 @@ p {
   color: whitesmoke;
 }
 
-#repo-div {
-  display: flex;
-}
-
-#content-div {
-  display: inline-block;
-}
-
 .repo-card {
   display: flex;
   flex-direction: row;
@@ -205,7 +212,17 @@ p {
 #repo-div {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  overflow-y: hidden;
+  max-width: 80rem;
+  height: 44rem;
+}
+
+.repo-div-show-more {
+  height: 75% !important;
+}
+
+#repo-div::-webkit-scrollbar {
+  display: none;
 }
 
 #profile-navigate-content {
@@ -219,11 +236,12 @@ p {
 }
 
 #content-div {
-  max-width: 70%;
+  max-width: 100%;
+  margin: 0.5rem;
 }
 
 .main-repo-info * {
-  margin: 0.2rem;
+  margin: 0.05rem;
 }
 
 .repo-title {
@@ -249,13 +267,26 @@ p {
   padding: 0.2rem;
 }
 
+#search-div {
+  margin-top: 0.5rem;
+}
+
 #search-div input {
   background-color: black;
+  color: #8b949e;
   width: 50rem;
+  border: 1px solid #8b949e;
 }
 
 #show-more-container {
   display: flex;
   width: 50rem;
   justify-content: center;
+}
+
+#show-more-button {
+  background-color: #131e2e;
+  color: #57a5ff;
+  border: solid transparent 1px;
+  border-radius: 20%;
 }

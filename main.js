@@ -286,6 +286,16 @@ const addRemoveStar = () => {
   starDiv.addEventListener("click", starClick);
 };
 
+const showMore = () => {
+  const showMoreButton = document.getElementById("show-more-button");
+  const repoDiv = document.getElementById("repo-div");
+  const showMoreButtonClick = () => {
+    repoDiv.classList.toggle("repo-div-show-more");
+    console.log(repoDiv.outerHTML);
+  };
+  showMoreButton.addEventListener("click", showMoreButtonClick);
+};
+
 // packages array
 const packages = [
   {
@@ -692,6 +702,7 @@ const startApp = () => {
     repoFormEventListener();
     searchRepos();
     addRemoveStar();
+    showMore();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
