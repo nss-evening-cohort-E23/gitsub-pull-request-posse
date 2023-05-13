@@ -335,7 +335,7 @@ const packagesOnDom = (array) => {
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
-   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
+   <div class="footer"><button class="btn btn-danger" id="delete--${package.id}">Delete</button>
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
@@ -345,7 +345,7 @@ const packagesOnDom = (array) => {
 };
 
 
-packagesOnDom(packages);
+
 
 
 // code to create a new package
@@ -371,7 +371,7 @@ form.addEventListener('submit', createNewPackage);
 
 // code to delete a package
 const deletePackage = (e) => {  
-  if (e.target.id === 'delete') {
+  if (e.target.id.includes('delete')) {
     const [, id] = e.target.id.split('--');
 
     const index = packages.findIndex((package) => package.id === Number(id));
@@ -382,7 +382,7 @@ const deletePackage = (e) => {
 }; 
 
 const deletePackageEventLister = () => {
-  const packages = document.querySelector('#packages');
+  const packages = document.querySelector('#pkgs');
   packages.addEventListener('click', deletePackage);
   
 };
@@ -517,27 +517,40 @@ const repos = [
 const pinnedOnDom = (array) => {
   let domString = "";
 
-  const colorDot = () => {
-  if (language === javascript) {
-    return "&#128993;"
-  } else if (language === HTML) {
-    return "&#128308;"
-  } else if (language === CSS) {
-    return "&#128995;"
-  } else {
-    return ""
-  }
-  colorDot()
-}
+  
 
   for (const pinned of array) {
+
+    const repoLanguage = () => {
+      switch (pinned.language) {
+        case "javascript":
+          return `🟡 JavaScript`;
+          break;
+        case "typescript":
+          return `🔵 TypeScript`;
+          break;
+        case "C#":
+          return `🟢 C#`;
+          break;
+        case "java":
+          return `☕️ Java`;
+          break;
+        case "ruby":
+          return `🔻 Ruby`;
+          break;
+        case "react":
+          return `☢️ React`;
+          break;
+      }
+    };
+
     if (pinned.pinned === true) {
       domString += `<div class="card pinned-repo" style="width: 18rem;">
   <div class="card-body pinned-card-body">
     <h5 class="card-title repo-name">${pinned.name}</h5>
     <p class="card-text repo-description">${pinned.description}</p>
     <div class="details">
-      <p>${pinned.language}</p>
+      <p>${repoLanguage()}</p>
       <p>${pinned.branches}</p>
     </div>
   </div>
