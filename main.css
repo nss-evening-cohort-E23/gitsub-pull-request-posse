@@ -252,6 +252,10 @@ p {
   color: #8b949e;
 }
 
+#repo-description {
+  color: #c8d1d8;
+}
+
 .details {
   color: #8b949e;
 }
@@ -261,6 +265,10 @@ p {
   color: #57a5ff;
   border: solid transparent 1px;
   border-radius: 20%;
+}
+
+#repo-name-input {
+  color: #c8d1d8;
 }
 
 #content-div * {
@@ -273,7 +281,7 @@ p {
 
 #search-div input {
   background-color: black;
-  color: #8b949e;
+  color: #c8d1d8;
   width: 50rem;
   border: 1px solid #8b949e;
 }
