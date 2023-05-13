@@ -373,7 +373,7 @@ form.addEventListener('submit', createNewPackage);
 
 // code to delete a package
 
-document.querySelector('#pkgs').addEventListener('click', (e) => {
+document.querySelector('#packages').addEventListener('click', (e) => {
   if (e.target.id.includes("delete")) {
     const [, id] = e.target.id.split("--");
 
