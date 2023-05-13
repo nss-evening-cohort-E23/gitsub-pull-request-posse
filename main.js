@@ -335,7 +335,7 @@ const packagesOnDom = (array) => {
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
-   <div class="footer"><button class="btn btn-danger" id="delete--${package.id}">Delete</button>
+   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
@@ -345,7 +345,7 @@ const packagesOnDom = (array) => {
 };
 
 
-
+packagesOnDom(packages);
 
 
 // code to create a new package
@@ -371,7 +371,7 @@ form.addEventListener('submit', createNewPackage);
 
 // code to delete a package
 const deletePackage = (e) => {  
-  if (e.target.id.includes('delete')) {
+  if (e.target.id === 'delete') {
     const [, id] = e.target.id.split('--');
 
     const index = packages.findIndex((package) => package.id === Number(id));
@@ -382,7 +382,7 @@ const deletePackage = (e) => {
 }; 
 
 const deletePackageEventLister = () => {
-  const packages = document.querySelector('#pkgs');
+  const packages = document.querySelector('#packages');
   packages.addEventListener('click', deletePackage);
   
 };
@@ -512,7 +512,62 @@ const repos = [
   },
 ];
 
+// project section below
+const projects = [
+  { name: "Project 1",
+    description: "Fix code in box"},
+  { name: 'Project 2',
+    description: "Come up with names"},
+  { name: 'Project 3',
+    description: "List items in array"},
+  { name: 'Project 4',
+    description: "Thank the Moms"}
+];
+function projectsOnDom(projectArr) {
+  let domString = "";
+  for (const proj of projectArr) {
+    domString += `<div class="card" style="width:18rem;">
+      <div class="card-body">
+      <p class="card-text">${proj.name}</p>
+      <p class="card-text">${proj.description}</p>
+      </div>
+    </div>`;
+  };
+  renderToDom("projectList", domString);
+}
+projectsOnDom(projects);
+const renderProjectForm = () => {
+  const form = `
+  <form>
+    <div class="createNewProject">
+      <label for="exampleInputName1" class="form-label"> Project Board Name</label>
+      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Name">
+      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Example 2">
+      <div id="nameHelp" class="form-text"></div>
+    </div>
+    <button type="submit" class="createNewProjectButton">Create Project</button>
+  </form>
+  `
+ renderToDom("createNewProject", form);
+}
+renderProjectForm();
+const formButton = document.querySelector("#createNewProjectButton");
+// formButton.addEventListener('click', renderForm);
+const formSubmission = document.querySelector("#createNewProject");
+const createProject = (e) => {
+  e.preventDefault();
+const form = document.querySelector('form');
+const newProjectObj = {
+  name: document.querySelector("#name").value,
+  description: document.querySelector("#description").value
+};
+projects.push(newProjectObj);
+projectsOnDOM(projects);
+form.reset();
+}
+// form.addEventListener('Create Project', createProject);
 
+// project section above 
 
 const pinnedOnDom = (array) => {
   let domString = "";
@@ -645,6 +700,7 @@ const startApp = () => {
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
     packageFormEventLister();
+    deletePackageEventLister();
   }
 };
 startApp();
