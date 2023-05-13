@@ -483,7 +483,30 @@ const repos = [
     pinned: false,
   },
 ];
+
 // project section below
+const projects = [
+  { name: "Project 1",
+    description: "Fix code in box"},
+  { name: 'Project 2',
+    description: "Come up with names"},
+  { name: 'Project 3',
+    description: "List items in array"},
+  { name: 'Project 4',
+    description: "Thank the Moms"}
+];
+function projectsOnDom(projectArr) {
+  let domString = "";
+  for (const proj of projectArr) {
+    domString += `<div class="card" style="width:18rem;">
+      <div class="card-body">
+      <p class="card-text">${proj.name}</p>
+      <p class="card-text">${proj.description}</p>
+      </div>
+    </div>`;
+  };
+  renderToDom("projectList", domString);
+}
 projectsOnDom(projects);
 const renderProjectForm = () => {
   const form = `
@@ -515,13 +538,7 @@ projectsOnDOM(projects);
 form.reset();
 }
 // form.addEventListener('Create Project', createProject);
-const app = document.querySelector("#app");
-app.addEventListener('click', (e) => {
-  if (e.target.id.includes("create project")) {
-    console.log(index);
-    projectsOnDOM(projects);
-  }
-});
+
 // project section above 
 
 const pinnedOnDom = (array) => {
