@@ -490,6 +490,7 @@ const renderProjectForm = () => {
   <form>
     <div class="createNewProject">
       <label for="exampleInputName1" class="form-label"> Project Board Name</label>
+      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Name">
       <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Example 2">
       <div id="nameHelp" class="form-text"></div>
     </div>
