@@ -16,7 +16,7 @@ body {
   .pin-title {
     display: flex;
     justify-content: center;
-    color: rgb(199, 2, 2);
+    margin-top: 20px;
   }
 
   .pinned-card {
@@ -31,6 +31,19 @@ body {
   border: 1px solid rgb(81, 81, 81);
   border-radius: 10px;
   height: 100%;
+}
+
+.followers, .location, .web-address, .highlights, .sponsors, .organ, .pro-text {
+  margin: 10px;
+}
+
+.pro-title {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.follow-btn {
+  margin-left: 10px;
 }
 
 .web-address, .location, .followers{

@@ -446,19 +446,6 @@ const repos = [
     pinned: true,
   },
   {
-    id: 9,
-    name: "pikachu-gif-generator",
-    description: "AI pikachu gif generator",
-    tags: ["TypeScript", "javascript", "pokeCode", "vim"],
-    language: "javascript",
-    stars: 10000,
-    branches: 3,
-    issues: 0,
-    updatedDate: "09/28/1998",
-    starred: false,
-    pinned: true,
-  },
-  {
     id: 7,
     name: "HTML-Resume",
     description: "A resume project to help learn HTML",
@@ -484,23 +471,38 @@ const repos = [
     starred: false,
     pinned: false,
   },
+  {
+    id: 9,
+    name: "pikachu-gif-generator",
+    description: "AI pikachu gif generator",
+    tags: ["TypeScript", "javascript", "pokeCode", "vim"],
+    language: "javascript",
+    stars: 10000,
+    branches: 3,
+    issues: 0,
+    updatedDate: "09/28/1998",
+    starred: false,
+    pinned: true,
+  },
 ];
 
-// const colorDot = (arr) => {
-//   if (language === javascript) {
-//     return "&#128993;"
-//   } else if (language === HTML) {
-//     return "&#128308;"
-//   } else if (language === CSS) {
-//     return "&#128995;"
-//   } else {
-//     return ""
-//   }
-  
-// }
+
 
 const pinnedOnDom = (array) => {
   let domString = "";
+
+  const colorDot = () => {
+  if (language === javascript) {
+    return "&#128993;"
+  } else if (language === HTML) {
+    return "&#128308;"
+  } else if (language === CSS) {
+    return "&#128995;"
+  } else {
+    return ""
+  }
+  colorDot()
+}
 
   for (const pinned of array) {
     if (pinned.pinned === true) {
@@ -523,9 +525,9 @@ const profile = () => {
   let domString = `<div class="card pro-card" style="width: 18rem;">
       <div class="card-body">
         <img src="photos/image.png" class="card-img-top pro-img" alt="Pull Request Posse">
-        <h3 class="card-title">Pull Request Posse</h3>
+        <h3 class="card-title pro-title">Pull Request Posse</h3>
         <h5 class="card-subtitle mb-2 text-body-secondary">PRP</h5>
-        <p class="card-text">Coding our hearts out for a better, brighter, techier future!
+        <p class="card-text pro-text">Coding our hearts out for a better, brighter, techier future!
         </p>
         <div>
         <button type="button" class="btn btn-dark follow-btn">Follow</button>
@@ -568,7 +570,7 @@ const profile = () => {
           <img src="https://avatars.githubusercontent.com/u/129906791?s=200&v=4" class="org">
         </div>
         <hr>
-        <div>
+        <div class="sponsors">
           <h5>Sponsors</h5>
           <img src="https://ca.slack-edge.com/T03F2SDTJ-U04RQ6SRKJB-5f76c7c0a76b-512" class="sponsor-img">
           <img src="https://ca.slack-edge.com/T03F2SDTJ-U04S1QC70HK-260085a625d5-512" class="sponsor-img">
