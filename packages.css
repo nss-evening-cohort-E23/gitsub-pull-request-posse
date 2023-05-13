@@ -68,6 +68,7 @@ body {
   margin: auto;
   width: 75px;
   height: 35px;
+  background-color: darkred;
 }
 
 #card-footer {

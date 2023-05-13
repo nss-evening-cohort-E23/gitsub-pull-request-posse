@@ -118,7 +118,7 @@ packagesOnDom(packages);
 const startApp = () => {
   packagesOnDom(packages);
 }
-
+// code to create a new package
 const form = document.querySelector('.form');
 
 const createNewPackage = (e) => {
@@ -137,7 +137,20 @@ const createNewPackage = (e) => {
 
 form.addEventListener('submit', createNewPackage);
 
-startApp();
+// code to delete a package
+
+document.querySelector('#pkgs').addEventListener('click', (e) => {
+  if (e.target.id.includes("delete")) {
+    const [, id] = e.target.id.split("--");
+
+    const index = packages.findIndex(e => e.id === number(id));
+
+    projects.splice(index, 1);
+    packagesOnDom(packages);
+    
+  }
+});
+
 
 const repos = [
   {
