@@ -344,6 +344,12 @@ const packagesOnDom = (array) => {
   renderToDom("packages", domString);
 };
 
+
+packagesOnDom(packages);
+
+
+// code to create a new package
+const form = document.querySelector('.form');
 const packageFormEventLister = () => {
   const form = document.querySelector(".form");
 
@@ -360,10 +366,30 @@ const packageFormEventLister = () => {
     packagesOnDom(packages);
     form.reset();
   };
-
-  form.addEventListener("submit", createNewPackage);
+form.addEventListener('submit', createNewPackage);
 };
 
+// code to delete a package
+const deletePackage = (e) => {  
+  if (e.target.id === 'delete') {
+    const [, id] = e.target.id.split('--');
+
+    const index = packages.findIndex((package) => package.id === Number(id));
+
+    packages.splice(index, 1);
+  }
+    packagesOnDom(packages);
+}; 
+
+const deletePackageEventLister = () => {
+  const packages = document.querySelector('#packages');
+  packages.addEventListener('click', deletePackage);
+  
+};
+
+
+
+ 
 
 
 const repos = [
