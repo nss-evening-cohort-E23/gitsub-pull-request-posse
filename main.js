@@ -505,14 +505,25 @@ const pinnedOnDom = (array) => {
 };
 // projects below
 const projects = [
-  { name: "Project 1",
-    description: "Fix code in box"},
-  { name: 'Project 2',
-    description: "Come up with names"},
-  { name: 'Project 3',
-    description: "List items in array"},
-  { name: 'Project 4',
-    description: "Thank the Moms"}
+  { 
+    id: 1,
+    name: "Project 1",
+    description: "Fix code in box"
+  },
+  { 
+    id: 2,
+    name: 'Project 2',
+    description: "Come up with names"
+  },
+  { 
+    id: 3,
+    name: 'Project 3',
+    description: "List items in array"
+  },
+  { id: 4,
+    name: 'Project 4',
+    description: "Thank the Moms"
+  }
 ];
 function projectsOnDom(projectArr) {
   let domString = "";
@@ -526,38 +537,60 @@ function projectsOnDom(projectArr) {
   };
   renderToDom("projectList", domString);
 }
-projectsOnDom(projects);
+;
 const renderProjectForm = () => {
   const form = `
-  <form>
+  <form class="projectForm">
     <div class="createNewProject">
       <label for="exampleInputName1" class="form-label"> Project Board Name</label>
-      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Name">
-      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Example 2">
+      <input type="name" class="form-control" id="projectName" aria-describedby="nameHelp" placeholder="Name">
+      <input type="name" class="form-control" id="projectDescription" aria-describedby="nameHelp" placeholder="Example 2">
       <div id="nameHelp" class="form-text"></div>
     </div>
-    <button type="submit" class="createNewProjectButton">Create Project</button>
+    <button type="submit" id="createNewProjectButton">Create Project</button>
   </form>
   `
- renderToDom("createNewProject", form);
+ renderToDom("createNewProjectForm", form);
 }
-renderProjectForm();
-const formButton = document.querySelector("#createNewProjectButton");
-// formButton.addEventListener('click', renderForm);
-const formSubmission = document.querySelector("#createNewProject");
-const createProject = (e) => {
-  e.preventDefault();
-const form = document.querySelector('form');
-const newProjectObj = {
-  name: document.querySelector("#name").value,
-  description: document.querySelector("#description").value
+
+const newProject = () => {
+  const projectForm = document.querySelector(".projectForm");
+  const creatNewProject = (e) => {
+    e.preventDefault();
+  
+    const newProject = {
+      id: projects.length + 1,
+      name: document.querySelector("#projectName").value,
+      description: document.querySelector("#projectDescription").value,
+    };
+    console.log(newProject);
+    projects.unshift(newProject);
+    projectsOnDom(projects);
+    projectForm.reset();
+  }
+  projectForm.addEventListener('submit', creatNewProject);
 };
-projects.push(newProjectObj);
-projectsOnDOM(projects);
-form.reset();
-}
 
-
+// const searchRepos = () => {
+//   const search = document.getElementById("find-repo");
+//   const searcher = (e) => {
+//     console.log(e);
+//     console.log(e.target.value);
+//     const searched = [];
+//     repos.forEach((repo) => {
+//       let repoNameLowerCase = repo.name.toLowerCase();
+//       let repoDescLowerCase = repo.description.toLowerCase();
+//       if (
+//         repoNameLowerCase.includes(e.target.value.toLowerCase()) ||
+//         repoDescLowerCase.includes(e.target.value.toLowerCase())
+//       ) {
+//         searched.push(repo);
+//       }
+//     });
+//     reposOnDom(searched);
+//   };
+//   search.addEventListener("input", searcher);
+// };
 // project section above 
 const profile = () => {
   let domString = `<div class="card pro-card" style="width: 18rem;">
@@ -628,6 +661,11 @@ const startApp = () => {
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
     packageFormEventLister();
+  }
+  if (document.URL.includes("projects")) {
+    projectsOnDom(projects);
+    renderProjectForm();
+    newProject();
   }
 };
 startApp();
