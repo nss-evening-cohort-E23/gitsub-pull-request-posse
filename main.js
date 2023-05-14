@@ -5,7 +5,7 @@ const renderToDom = (divId, htmltoRender) => {
 
 const navBar = () => {
   let domString = `
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-top navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Github</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@ const navBar = () => {
 
 const footer = () => {
   let domString = `
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="footer navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,6 +84,7 @@ const reposOnDom = (reposArr) => {
   let domString = "";
   reposArr.forEach((repo) => {
     //function to return buttons for each of the repo tags
+    // if (repo.id < 5) {
     const repoTags = () => {
       let tagButtons = "";
       repo.tags.forEach((tag) => {
@@ -130,15 +131,19 @@ const reposOnDom = (reposArr) => {
         case "react":
           return `☢️ React`;
           break;
+        case "CSS":
+          return `🌈 CSS`;
+          break;
       }
     };
+
     domString += `
-    <div class="card" style="width: 18rem;">
-      <div class="card-body repo-card">
+    <div class="card repo-card">
+      <div class="card-body repo-card-body">
         <div class="main-repo-info">
-          <h5 class="card-title">${repo.name}</h5>
-          <p class="card-text">${repo.description}</p>
-          <div class='buttons'>
+          <h5 class="card-title repo-title">${repo.name}</h5>
+          <p class="card-text repo-description">${repo.description}</p>
+          <div class='repo-buttons'>
             ${repoTags()}
           </div>
           <div class='details'>
@@ -281,6 +286,16 @@ const addRemoveStar = () => {
   starDiv.addEventListener("click", starClick);
 };
 
+const showMore = () => {
+  const showMoreButton = document.getElementById("show-more-button");
+  const repoDiv = document.getElementById("repo-div");
+  const showMoreButtonClick = () => {
+    repoDiv.classList.toggle("repo-div-show-more");
+    console.log(repoDiv.outerHTML);
+  };
+  showMoreButton.addEventListener("click", showMoreButtonClick);
+};
+
 // packages array
 const packages = [
   {
@@ -335,7 +350,7 @@ const packagesOnDom = (array) => {
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
-   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
+   <div class="footer"><button class="btn btn-danger" id="delete--${package.id}">Delete</button>
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
@@ -344,6 +359,8 @@ const packagesOnDom = (array) => {
   renderToDom("packages", domString);
 };
 
+// code to create a new package
+const form = document.querySelector(".form");
 const packageFormEventLister = () => {
   const form = document.querySelector(".form");
 
@@ -360,8 +377,25 @@ const packageFormEventLister = () => {
     packagesOnDom(packages);
     form.reset();
   };
-
   form.addEventListener("submit", createNewPackage);
+};
+
+// code to delete a package
+const deletePackage = (e) => {
+  console.log(e.target.id);
+  if (e.target.id.includes("delete")) {
+    const [, id] = e.target.id.split("--");
+
+    const index = packages.findIndex((package) => package.id === Number(id));
+
+    packages.splice(index, 1);
+  }
+  packagesOnDom(packages);
+};
+
+const deletePackageEventLister = () => {
+  const pkgs = document.querySelector("#packages");
+  pkgs.addEventListener("click", deletePackage);
 };
 
 const repos = [
@@ -369,7 +403,7 @@ const repos = [
     id: 1,
     name: "Sorting-Hat",
     description: "An app to find which Hogworts House you are in.",
-    tags: ["HTML", "javascript", "CSS"],
+    tags: ["HTML", "JavaScript", "CSS"],
     language: "javascript",
     stars: 500,
     branches: 70,
@@ -382,7 +416,7 @@ const repos = [
     id: 2,
     name: "Calculator",
     description: "A functioning calculator.",
-    tags: ["HTML", "javascript", "CSS"],
+    tags: ["HTML", "JavaScript", "CSS"],
     language: "javascript",
     stars: 1000,
     branches: 150,
@@ -395,8 +429,8 @@ const repos = [
     id: 3,
     name: "Pet-Adoption",
     description: "An app for adopting pets.",
-    tags: ["HTML", "javascript", "CSS"],
-    language: "HTML",
+    tags: ["HTML", "JavaScript", "CSS"],
+    language: "javascript",
     stars: 28752,
     branches: 15,
     issues: 0,
@@ -408,7 +442,7 @@ const repos = [
     id: 4,
     name: "Youtube-Player",
     description: "A project to setup a mock YouTube",
-    tags: ["HTML", "javascript", "CSS"],
+    tags: ["HTML", "JavaScript", "CSS"],
     language: "javascript",
     stars: 25,
     branches: 5,
@@ -422,7 +456,7 @@ const repos = [
     name: "Link-In-Bio",
     description: "A mock up of your personal links.",
     tags: ["HTML", "CSS"],
-    language: "HTML",
+    language: "CSS",
     stars: 78,
     branches: 6,
     issues: 0,
@@ -433,9 +467,9 @@ const repos = [
   {
     id: 6,
     name: "Word-Counter",
-    description: "A basic Java Script word counter",
-    tags: ["HTML", "Javascript", "CSS"],
-    language: "Javascript",
+    description: "A basic JavaScript word counter",
+    tags: ["HTML", "JavaScript", "CSS"],
+    language: "javascript",
     stars: 2,
     branches: 14,
     issues: 2,
@@ -461,7 +495,7 @@ const repos = [
     name: "HTML-Resume",
     description: "A resume project to help learn HTML",
     tags: ["HTML", "CSS"],
-    language: "HTML",
+    language: "CSS",
     stars: 2,
     branches: 2,
     issues: 0,
@@ -534,10 +568,9 @@ function projectsOnDom(projectArr) {
       <p class="card-text">${proj.description}</p>
       </div>
     </div>`;
-  };
+  }
   renderToDom("projectList", domString);
 }
-;
 const renderProjectForm = () => {
   const form = `
   <form class="projectForm">
@@ -653,19 +686,33 @@ const startApp = () => {
       "<div><input type='text' id='find-repo' value='' placeholder='Find a repository...'></div>"
     );
     reposOnDom(repos);
+    renderToDom(
+      "show-more-container",
+      "<button id='show-more-button'>Show More</button>"
+    );
     repoAddForm();
     repoFormEventListener();
     searchRepos();
     addRemoveStar();
+    showMore();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
     packageFormEventLister();
+    deletePackageEventLister();
+  }
+  if (document.URL.includes("packages")) {
+    projectsOnDom(projects);
+    renderProjectForm();
   }
   if (document.URL.includes("projects")) {
     projectsOnDom(projects);
     renderProjectForm();
     newProject();
   }
+  if (document.URL.includes("projects")) {
+    projectsOnDom(projects);
+  }
 };
-startApp();
+
+// startApp();
