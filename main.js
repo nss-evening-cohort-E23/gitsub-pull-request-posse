@@ -13,7 +13,7 @@ const navBar = () => {
         </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="index.html">Overview</a>
+          <a class="nav-link" aria-current="page" href="index.html">Overview</a>
           <a class="nav-link" href="/repos.html">Repositories</a>
           <a class="nav-link" href="/projects.html">Projects</a>
           <a class="nav-link" href="/packages.html">Packages</a>
@@ -284,6 +284,16 @@ const addRemoveStar = () => {
     }
   };
   starDiv.addEventListener("click", starClick);
+};
+
+const showMore = () => {
+  const showMoreButton = document.getElementById("show-more-button");
+  const repoDiv = document.getElementById("repo-div");
+  const showMoreButtonClick = () => {
+    repoDiv.classList.toggle("repo-div-show-more");
+    console.log(repoDiv.outerHTML);
+  };
+  showMoreButton.addEventListener("click", showMoreButtonClick);
 };
 
 // packages array
@@ -685,14 +695,21 @@ const profile = () => {
   renderToDom("profile", domString);
 };
 
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+
+
 const startApp = () => {
   navBar();
   footer();
   profile();
+ 
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
   if (document.title.includes("Overview")) {
     repoAddForm();
     pinnedOnDom(repos);
+    
   }
   if (document.URL.includes("repos")) {
     renderToDom(
@@ -708,6 +725,7 @@ const startApp = () => {
     repoFormEventListener();
     searchRepos();
     addRemoveStar();
+    showMore();
   }
   if (document.URL.includes("packages")) {
     packagesOnDom(packages);
