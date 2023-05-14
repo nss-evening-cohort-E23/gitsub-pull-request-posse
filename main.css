@@ -162,6 +162,7 @@ p {
   margin-bottom: 15px;
   padding: 10px;
   color: whitesmoke;
+  border-radius: 15px;
 }
 
 #submit {
