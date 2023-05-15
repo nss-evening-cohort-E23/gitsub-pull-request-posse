@@ -3,6 +3,11 @@ body {
   margin: 5px;
 }
 
+.card-body {
+  border: 2px solid rgb(81, 81, 81);
+  border-radius: 5px;
+}
+
 .overview,
 .pinned {
   display: flex;
@@ -16,7 +21,7 @@ body {
 .pin-title {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 20pgit x;
 }
 
 .pinned-card {
@@ -28,7 +33,7 @@ body {
 .pro-card {
   background-color: black;
   color: white;
-  border: 1px solid rgb(81, 81, 81);
+  /* border: 1px solid rgb(81, 81, 81); */
   border-radius: 10px;
   height: 100%;
 }
@@ -60,6 +65,7 @@ body {
 
 .pro-img {
   border-radius: 75px;
+  
 }
 
 .org {
@@ -168,7 +174,7 @@ p {
   margin-top: 10px;
   background-color: black;
   color: whitesmoke;
-  border: 3px solid lightgray;
+  /* border: 3px solid lightgray; */
 }
 
 #newPackage {
@@ -297,4 +303,31 @@ p {
   color: #57a5ff;
   border: solid transparent 1px;
   border-radius: 20%;
+}
+
+.navbar {
+  padding: 0;
+  border: 2px solid rgb(81, 81, 81);
+  border-radius: 5px;
+}
+
+.container-fluid {
+  background-color: black;
+  color: white;
+}
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  color: rgb(179, 178, 178);
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.navbar-brand:hover {
+  color: rgb(179, 178, 178);
 }
