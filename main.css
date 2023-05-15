@@ -142,7 +142,7 @@ p {
   color: whitesmoke;
 }
 
-#navigate {
+#navigate { 
   flex: none;
 }
 
@@ -183,6 +183,7 @@ p {
   margin-bottom: 15px;
   padding: 10px;
   color: whitesmoke;
+  border-radius: 15px;
 }
 
 #submit {

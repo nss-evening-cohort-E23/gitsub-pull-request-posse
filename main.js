@@ -398,6 +398,35 @@ const deletePackageEventLister = () => {
   pkgs.addEventListener("click", deletePackage);
 };
 
+// package searcher
+
+const searchPackages = () => {
+  const search = document.getElementById("find-package");
+  const searcher = (e) => {
+    const searched = [];
+    packages.forEach((package) => {
+      let packageNameLowerCase = package.name.toLowerCase();
+      let packageDescLowerCase = package.description.toLowerCase();
+      if (
+        packageNameLowerCase.includes(e.target.value.toLowerCase()) ||
+        packageDescLowerCase.includes(e.target.value.toLowerCase())
+      ) {
+        searched.push(package);
+      }
+
+    });
+    packagesOnDom(searched);
+    
+  };
+  search.addEventListener("input", searcher);
+  
+
+};
+
+
+
+
+
 const repos = [
   {
     id: 1,
@@ -747,10 +776,14 @@ const startApp = () => {
     packagesOnDom(packages);
     packageFormEventLister();
     deletePackageEventLister();
+    searchPackages();
+    
   }
-  if (document.URL.includes("packages")) {
+  if (document.URL.includes("projects")) {
     projectsOnDom(projects);
     renderProjectForm();
+
+    
   }
   if (document.URL.includes("projects")) {
     projectsOnDom(projects);
