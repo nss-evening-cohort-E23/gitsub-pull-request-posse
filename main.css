@@ -304,6 +304,28 @@ p {
   border: solid transparent 1px;
   border-radius: 20%;
 }
+/* projects */
+#projectStuff {
+  color: #53cb61;
+  display: flex;
+  flex-direction: row;
+  width: 100rem;
+  background-color: black;
+  border-bottom: 700px;
+  border-radius: 1%;
+  border: 3px solid lightgray;
+  margin-top: 50px;
+  margin-bottom: 400px;
+  margin-left: 400px;
+  padding: 10px;
+}
+#projectList {
+  position: absolute;
+  top: 100;
+  right: 250;
+  display: flex; justify-content: center;
+  font-size: larger;
+} 
 
 .navbar {
   padding: 0;
