@@ -13,7 +13,7 @@ const navBar = () => {
         </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="index.html">Overview</a>
+          <a class="nav-link" aria-current="page" href="index.html">Overview</a>
           <a class="nav-link" href="/repos.html">Repositories</a>
           <a class="nav-link" href="/projects.html">Projects</a>
           <a class="nav-link" href="/packages.html">Packages</a>
@@ -350,7 +350,7 @@ const packagesOnDom = (array) => {
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
-   <div class="footer"><button class="btn btn-danger" id="delete--${package.id}">Delete</button>
+   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
@@ -559,13 +559,27 @@ const repos = [
     pinned: true,
   },
 ];
-
 // project section below
 const projects = [
-  { name: "Project 1", description: "Fix code in box" },
-  { name: "Project 2", description: "Come up with names" },
-  { name: "Project 3", description: "List items in array" },
-  { name: "Project 4", description: "Thank the Moms" },
+  { 
+    id: 1,
+    name: "Project 1",
+    description: "Fix code in box"
+  },
+  { 
+    id: 2,
+    name: 'Project 2',
+    description: "Come up with names"
+  },
+  { 
+    id: 3,
+    name: 'Project 3',
+    description: "List items in array"
+  },
+  { id: 4,
+    name: 'Project 4',
+    description: "Thank the Moms"
+  },
 ];
 function projectsOnDom(projectArr) {
   let domString = "";
@@ -582,67 +596,85 @@ function projectsOnDom(projectArr) {
 
 const renderProjectForm = () => {
   const form = `
-  <form>
-    <div class="createNewProject">
-      <label for="exampleInputName1" class="form-label"> Project Board Name</label>
-      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Name">
-      <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Example 2">
-      <div id="nameHelp" class="form-text"></div>
-    </div>
-    <button type="submit" class="createNewProjectButton">Create Project</button>
+  <form id='projectForm'>
+  <div class="createNewProject">
+  <label for="exampleInputName1" class="form-label"> Project Board Name</label>
+  <input type="name" class="form-control" id="projectName" aria-describedby="nameHelp" placeholder="Name">
+  <input type="name" class="form-control" id="projectDescription" aria-describedby="nameHelp" placeholder="Example 2">
+  <div id="nameHelp" class="form-text"></div>
+</div>
+<button type="submit" id="createNewProjectButton">Create Project</button>
   </form>
   `;
-  renderToDom("createNewProject", form);
+  renderToDom("createNewProjectForm", form);
 };
 
-const formButton = document.querySelector("#createNewProjectButton");
 // formButton.addEventListener('click', renderForm);
-const formSubmission = document.querySelector("#createNewProject");
-const createProject = (e) => {
-  e.preventDefault();
-  const form = document.querySelector("form");
-  const newProjectObj = {
-    name: document.querySelector("#name").value,
-    description: document.querySelector("#description").value,
+const newProject =() => {
+  const formSubmission = document.querySelector("#projectForm");
+  const createProject = (e) => {
+    e.preventDefault();
+    const form = document.querySelector("form");
+    const newProjectObj = {
+      name: document.querySelector("#projectName").value,
+      description: document.querySelector("#projectDescription").value,
+    };
+    projects.push(newProjectObj);
+    projectsOnDom(projects);
+    formSubmission.reset();
   };
-  projects.push(newProjectObj);
-  projectsOnDom(projects);
-  form.reset();
+  formSubmission.addEventListener('submit', createProject);
 };
-// form.addEventListener('Create Project', createProject);
 
 // project section above
 
 const pinnedOnDom = (array) => {
   let domString = "";
 
-  const colorDot = () => {
-    if (language === javascript) {
-      return "&#128993;";
-    } else if (language === HTML) {
-      return "&#128308;";
-    } else if (language === CSS) {
-      return "&#128995;";
-    } else {
-      return "";
-    }
-    colorDot();
-  };
+  
 
   for (const pinned of array) {
+
+    const repoLanguage = () => {
+      switch (pinned.language) {
+        case "javascript":
+          return `🟡 JavaScript`;
+          break;
+        case "typescript":
+          return `🔵 TypeScript`;
+          break;
+        case "C#":
+          return `🟢 C#`;
+          break;
+        case "java":
+          return `☕️ Java`;
+          break;
+        case "ruby":
+          return `🔻 Ruby`;
+          break;
+        case "react":
+          return `☢️ React`;
+          break;
+        case "CSS":
+          return `🌈 CSS`;
+          break;
+      }
+    };
+
     if (pinned.pinned === true) {
       domString += `<div class="card pinned-repo" style="width: 18rem;">
   <div class="card-body pinned-card-body">
     <h5 class="card-title repo-name">${pinned.name}</h5>
     <p class="card-text repo-description">${pinned.description}</p>
     <div class="details">
-      <p>${pinned.language}</p>
+      <p>${repoLanguage()}</p>
       <p>${pinned.branches}</p>
     </div>
   </div>
 </div>`;
     }
   }
+  // projectForm.addEventListener('submit', creatNewProject);
   renderToDom("pinned-repo", domString);
 };
 
@@ -708,14 +740,21 @@ const profile = () => {
   renderToDom("profile", domString);
 };
 
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+
+
 const startApp = () => {
   navBar();
   footer();
   profile();
+ 
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
   if (document.title.includes("Overview")) {
     repoAddForm();
     pinnedOnDom(repos);
+    
   }
   if (document.URL.includes("repos")) {
     renderToDom(
@@ -745,6 +784,11 @@ const startApp = () => {
     renderProjectForm();
 
     
+  }
+  if (document.URL.includes("projects")) {
+    projectsOnDom(projects);
+    renderProjectForm();
+    newProject();
   }
 };
 startApp();
