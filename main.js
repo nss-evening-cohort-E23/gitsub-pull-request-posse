@@ -580,7 +580,6 @@ const renderProjectForm = () => {
   renderToDom("createNewProjectForm", form);
 };
 
-// const formButton = document.querySelector("#createNewProjectButton");
 // formButton.addEventListener('click', renderForm);
 const newProject =() => {
   const formSubmission = document.querySelector("#projectForm");
@@ -597,8 +596,6 @@ const newProject =() => {
   };
   formSubmission.addEventListener('submit', createProject);
 };
-
-// form.addEventListener('Create Project', createProject);
 
 // project section above
 

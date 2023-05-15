@@ -141,11 +141,8 @@ p {
 }
 
 .footer {
-  flex-grow: 2;
   margin-top: auto;
   justify-content: space-around;
-  position: absolute;
-  bottom: 0%;
 }
 
 #ftr-links {
@@ -308,14 +305,18 @@ p {
   flex-direction: row;
   width: 100rem;
   background-color: black;
-  border-bottom: 2px solid #21272b;
-  border-radius: 10%;
+  border-bottom: 700px;
+  border-radius: 1%;
+  border: 3px solid lightgray;
+  margin-top: 50px;
+  margin-bottom: 400px;
+  margin-left: 400px;
+  padding: 10px;
 }
 #projectList {
-  display: flex; justify-content: right;
-  flex-direction: row;
-  width: 125rem;
-  background-color: black;
-  border-bottom: 1px solid #21272b;
-  border-radius: 10%;
-}
+  position: absolute;
+  top: 100;
+  right: 250;
+  display: flex; justify-content: center;
+  font-size: larger;
+} 
