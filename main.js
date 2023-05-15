@@ -13,7 +13,7 @@ const navBar = () => {
         </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="index.html">Overview</a>
+          <a class="nav-link" aria-current="page" href="index.html">Overview</a>
           <a class="nav-link" href="/repos.html">Repositories</a>
           <a class="nav-link" href="/projects.html">Projects</a>
           <a class="nav-link" href="/packages.html">Packages</a>
@@ -350,7 +350,7 @@ const packagesOnDom = (array) => {
   <div class="card-body">
     <h5 class="card-title">${package.name}</h5>
     <p class="card-text">${package.description}.</p>
-   <div class="footer"><button class="btn btn-danger" id="delete--${package.id}">Delete</button>
+   <div class="footer"><button class="btn btn-danger" id="delete">Delete</button>
     <a href="#" class="card-link">More Information</a>
     </div>
   </div>
@@ -602,27 +602,43 @@ const newProject =() => {
 const pinnedOnDom = (array) => {
   let domString = "";
 
-  const colorDot = () => {
-    if (language === javascript) {
-      return "&#128993;";
-    } else if (language === HTML) {
-      return "&#128308;";
-    } else if (language === CSS) {
-      return "&#128995;";
-    } else {
-      return "";
-    }
-    colorDot();
-  };
+  
 
   for (const pinned of array) {
+
+    const repoLanguage = () => {
+      switch (pinned.language) {
+        case "javascript":
+          return `🟡 JavaScript`;
+          break;
+        case "typescript":
+          return `🔵 TypeScript`;
+          break;
+        case "C#":
+          return `🟢 C#`;
+          break;
+        case "java":
+          return `☕️ Java`;
+          break;
+        case "ruby":
+          return `🔻 Ruby`;
+          break;
+        case "react":
+          return `☢️ React`;
+          break;
+        case "CSS":
+          return `🌈 CSS`;
+          break;
+      }
+    };
+
     if (pinned.pinned === true) {
       domString += `<div class="card pinned-repo" style="width: 18rem;">
   <div class="card-body pinned-card-body">
     <h5 class="card-title repo-name">${pinned.name}</h5>
     <p class="card-text repo-description">${pinned.description}</p>
     <div class="details">
-      <p>${pinned.language}</p>
+      <p>${repoLanguage()}</p>
       <p>${pinned.branches}</p>
     </div>
   </div>
@@ -695,14 +711,21 @@ const profile = () => {
   renderToDom("profile", domString);
 };
 
+const myModal = document.getElementById('myModal')
+const myInput = document.getElementById('myInput')
+
+
+
 const startApp = () => {
   navBar();
   footer();
   profile();
+ 
   //calls functions specific to repos page, so as not to cause app breaking errors on other pages
   if (document.title.includes("Overview")) {
     repoAddForm();
     pinnedOnDom(repos);
+    
   }
   if (document.URL.includes("repos")) {
     renderToDom(
